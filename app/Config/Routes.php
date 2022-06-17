@@ -37,17 +37,16 @@ $routes->set404Override();
 // route since we don't have to scan directories.
 $routes->get('/', 'Home::index');
 
-$routes->get('/product', 'Product::index');
-$routes->post('/product', 'Product::create');
-$routes->delete('/product/(:num)', 'Product::delete/$1');
-
-$routes->get('/product/add', 'Product::store'); 
-$routes->get('/product/edit/(:num)', 'Product::edit/$1');
-$routes->post('/product/edit', 'Product::edit');
+$routes->get('/produk', 'Produk::index');
+$routes->get('/produk/(:num)', 'Produk::getProdukById/$1');
+$routes->post('/produk', 'Produk::create');
+$routes->delete('/produk/(:num)', 'Produk::delete/$1');
 
 
-$routes->get('/stock/in', 'Stock::stockIn');
-$routes->get('/stock/in-add', 'Stock::store');
+
+$routes->get('/transaksi-in', 'Transaksi::listTransIn');
+$routes->get('/transaksi-in/add', 'Transaksi::formAdd');
+$routes->post('/transaksi-in/add', 'Transaksi::prosesAdd');
 
 $routes->post('/stock/in', 'Stock::create');
 

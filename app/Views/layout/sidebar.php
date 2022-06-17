@@ -26,23 +26,23 @@
 
   <!-- Nav Item - Procuct -->
   <li class="nav-item">
-    <a class="nav-link" href="<?= base_url('product') ?>">
+    <a class="nav-link" href="<?= base_url('produk') ?>">
       <i class="fas fa-table"></i>
-      <span>Master Product</span>
+      <span>Master Produk</span>
     </a>
   </li>
 
   <li class="nav-item">
-    <a class="nav-link" href="<?= base_url('stock/in') ?>">
+    <a class="nav-link" href="<?= base_url('transaksi-in/') ?>">
       <i class="fas fa-pen"></i>
-      <span>Product In</span>
+      <span>Produk In</span>
     </a>
   </li>
 
   <li class="nav-item">
-    <a class="nav-link" href="<?= base_url('stock/out') ?>">
+    <a class="nav-link" href="<?= base_url('transaksi-out/') ?>">
       <i class="fas fa-truck"></i>
-      <span>Product Out</span>
+      <span>Produk Out</span>
     </a>
   </li>
 

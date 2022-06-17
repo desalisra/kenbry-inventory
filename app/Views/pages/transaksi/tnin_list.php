@@ -25,8 +25,8 @@
 <?php endif; ?>
 
 <div class="mb-2">
-  <a href="<?= base_url('stock/in-add'); ?>" class="btn btn-primary btn-sm">
-    <i class="fas fa-plus"></i> Add Stock Product
+  <a href="<?= base_url('transaksi-in/add'); ?>" class="btn btn-primary btn-sm">
+    <i class="fas fa-plus"></i> Add Transaksi
   </a>
 </div>
 

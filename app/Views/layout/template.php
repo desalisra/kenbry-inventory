@@ -81,5 +81,33 @@
   <!-- Page level custom scripts -->
   <script src="<?= base_url(); ?>/js/demo/datatables-demo.js"></script>
 
+  <script>
+      $('#addRow').click(function () {
+        var html = `
+          <div class="row mb-2">
+            <div class="col-md-5">
+              <select class="form-control" name="produk[]">
+                <option value="">Pilih Produk</option>
+                <?php if(isset($products)) : ?>
+                  <?php foreach ($products as $key => $value) : ?>
+                    <option value="<?= $value->prd_id ?>"><?= $value->prd_nama . " - " . $value->prd_panjang . "m x ". $value->prd_lebar . "m" ?></option>
+                  <?php endforeach ?>
+                <?php endif ?>
+              </select>
+            </div>
+            <div class="col-md-2">
+              <input type="number" class="form-control" name="qty[]" placeholder="Qty">
+            </div>
+            <div class="col-md-5">
+              <input type="text" class="form-control" name="ket[]" placeholder="Keterangan" autocomplete="off">
+            </div>
+          </div>
+        `;
+
+        $('#newRow').append(html);
+    });
+  
+</script>
+
 </body>
 </html>
