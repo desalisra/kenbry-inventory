@@ -4,37 +4,42 @@ namespace App\Models;
 
 use CodeIgniter\Model;
 
-class ProductModel extends Model
+class StockModel extends Model
 {
-  protected $table            = 'tb_product';
-  protected $primaryKey       = 'prd_id';
+  protected $table            = 't_stock';
+  protected $primaryKey       = 'stock_id';
   protected $useSoftDeletes   = true;
   protected $returnType       = 'object';
-  protected $allowedFields    = ['prd_id', 'prd_name', 'prd_aktifYN', 'prd_updateId','prd_updateTime'];
+  protected $allowedFields    = ['stock_id', 'stock_produk', 'stock_qty', 'stock_updateTime'];
 
-  // Dates
-  protected $useTimestamps = true;
-  protected $dateFormat    = 'datetime';
-  protected $createdField  = 'prd_updateTime';
-  protected $updatedField  = 'prd_updateTime';
-
-  public function generateId()
+  public function insertStock($data)
   {
-    $sql = "SELECT prd_id FROM tb_product ORDER BY prd_id DESC LIMIT 1";
-    $query = $this->query($sql);
-    $lastId = $query->getRow();
-
-    if(is_null($lastId)){
-      return "1001";
-    }else{
-      return $lastId->prd_id + 1;
-    }
+    $sql = "INSERT INTO t_stock (stock_produk, stock_qty, stock_updateTime)
+            VALUES (:stock_produk:, :stock_qty:, :stock_updateTime:)";
+    return $this->query($sql, $data);
   }
 
-  public function getProduct($id = null)
+  public function updateStock($data)
   {
-    $sql = "SELECT * FROM tb_product WHERE prd_aktifYN = 'Y'";
+    $sql = "UPDATE t_stock 
+            SET stock_qty = stock_qty + :stock_qty:,
+                stock_updateTime = :stock_updateTime:
+            WHERE stock_produk = :stock_produk:";
+    return $this->query($sql, $data);
+  }
+
+  public function minStock($data)
+  {
+    $sql = "UPDATE t_stock 
+            SET stock_qty = stock_qty - :stock_qty:,
+                stock_updateTime = :stock_updateTime:
+            WHERE stock_produk = :stock_produk:";
+    return $this->query($sql, $data);
+  }
+
+  public function cekStock($produkId, $qty){
+    $sql = "SELECT stock_qty - $qty AS qty FROM t_stock WHERE stock_produk = '$produkId'";
     $query = $this->query($sql);
-    return $query->getResult();
+    return $query->getRow();
   }
 }

@@ -35,7 +35,12 @@ $routes->set404Override();
 
 // We get a performance increase by specifying the default
 // route since we don't have to scan directories.
-$routes->get('/', 'Home::index');
+$routes->get('/home', 'Home::index');
+$routes->addRedirect('/', 'home');
+
+$routes->get('/login', 'Auth::index');
+$routes->post('/login', 'Auth::login');
+$routes->get('/logout', 'Auth::logout');
 
 $routes->get('/produk', 'Produk::index');
 $routes->get('/produk/(:num)', 'Produk::getProdukById/$1');
@@ -44,9 +49,17 @@ $routes->delete('/produk/(:num)', 'Produk::delete/$1');
 
 
 
-$routes->get('/transaksi-in', 'Transaksi::listTransIn');
-$routes->get('/transaksi-in/add', 'Transaksi::formAdd');
-$routes->post('/transaksi-in/add', 'Transaksi::prosesAdd');
+$routes->get('/transaksi-in', 'TransaksiIn::listTransIn');
+$routes->get('/transaksi-in/detail/(:alphanum)', 'TransaksiIn::detailTransIn/$1');
+$routes->get('/transaksi-in/add', 'TransaksiIn::formAdd');
+$routes->post('/transaksi-in/add', 'TransaksiIn::prosesAdd');
+
+$routes->get('/transaksi-out', 'TransaksiOut::listTransOut');
+$routes->get('/transaksi-out/detail/(:alphanum)', 'TransaksiOut::detailTransOut/$1');
+$routes->get('/transaksi-out/add', 'TransaksiOut::formAdd');
+$routes->post('/transaksi-out/add', 'TransaksiOut::prosesAdd');
+
+$routes->get('/transaksi-out/print', 'TransaksiOut::printSuratJalan');
 
 $routes->post('/stock/in', 'Stock::create');
 

@@ -2,14 +2,15 @@
 
 <?= $this->section('content') ?>
 
+<div class="row container">
+  <a href="<?= base_url('transaksi-in') ?>" class="mb-3 font-weight-bold text-secondary">
+    <i class="fas fa-arrow-left"></i> Kembali
+  </a>
+</div>
+
 <div class="card shadow mb-4">
   <div class="card-header py-3">
-    <h6 class="m-0 font-weight-bold text-primary">
-      <a href="<?= base_url('stock/in') ?>" class="mr-3">
-        <i class="fas fa-arrow-left"></i>
-      </a>
-      Stock Masuk
-    </h6>
+    <h6 class="m-0 font-weight-bold text-primary">Produk In</h6>
   </div>
   <div class="card-body">
 
@@ -18,12 +19,12 @@
       
       <div class="form-group">
         <label>No Refrensi</label>
-        <input type="text" class="form-control" name="noref">
+        <input type="text" class="form-control" name="noref" required>
       </div>
       
       <div class="form-group">
         <label>Tanggal</label>
-        <input type="date" class="form-control" name="tanggal">
+        <input type="date" class="form-control" name="tanggal" required>
       </div>
 
       <div class="form-group">
@@ -40,7 +41,7 @@
       </div>
       <div class="row mb-2">
         <div class="col-md-5">
-          <select class="form-control" name="produk[]">
+          <select class="form-control" name="produk[]" required>
             <option value="">Pilih Produk</option>
             <?php foreach ($products as $key => $value) : ?>
               <option value="<?= $value->prd_id ?>"><?= $value->prd_nama . " - " . $value->prd_panjang . "m x ". $value->prd_lebar . "m" ?></option>
@@ -48,7 +49,7 @@
           </select>
         </div>
         <div class="col-md-2">
-          <input type="number" class="form-control" name="qty[]" placeholder="Qty">
+          <input type="number" class="form-control" name="qty[]" placeholder="Qty" required>
         </div>
         <div class="col-md-5">
           <input type="text" class="form-control" name="ket[]" placeholder="Keterangan" autocomplete="off">

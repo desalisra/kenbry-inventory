@@ -3,12 +3,14 @@
 namespace App\Controllers;
 use CodeIgniter\I18n\Time;
 use App\Models\ProdukModel;
+use App\Models\StockModel;
 
 class Produk extends BaseController
 {
   public function __construct()
   {
     $this->modelProduk = new ProdukModel();
+    $this->modelStock = new StockModel();
   }
 
   public function index()
@@ -40,7 +42,17 @@ class Produk extends BaseController
         "prd_updateTime" => $datetime,
       ];
 
+      // Insert M_Produk
       $result = $this->modelProduk->addProduk($data);
+      
+      // Insert T_Stock
+      $data = [
+        "stock_produk" => $id,
+        "stock_qty" => 0,
+        "stock_updateTime" => $datetime
+      ];
+      $result = $this->modelStock->insertStock($data);
+
       if($result) {
         return redirect()->to(base_url('produk'))->with('success', 'Data Berhasil Disimpan');
       }else{

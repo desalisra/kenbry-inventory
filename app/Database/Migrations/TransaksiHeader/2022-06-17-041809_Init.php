@@ -20,7 +20,8 @@ class Init extends Migration
                 'null' => true
             ],
             'trnh_deskripsi' => [
-                'type' => 'int',
+                'type' => 'varchar',
+                'constraint' => 100,
                 'null' => true
             ],
             'trnh_jenis' => [
@@ -38,7 +39,7 @@ class Init extends Migration
             ],
         ]);
 
-        $this->forge->addKey('trn_id', true);
+        $this->forge->addKey('trnh_id', true);
         return $this->forge->createTable('transaksi_header', true);
     }
 
