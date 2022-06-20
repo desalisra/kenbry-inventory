@@ -39,8 +39,6 @@ class TransaksiIn extends BaseController
 
   public function prosesAdd()
   {
-    echo "PROSES IN";
-    die;
     $request = $this->request->getPost();
     $id = $this->modelHeader->generateId(); 
     $datetime = Time::now('Asia/Jakarta', 'id_ID');

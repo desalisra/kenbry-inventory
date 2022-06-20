@@ -47,6 +47,13 @@
   </li>
 
   <li class="nav-item">
+    <a class="nav-link" href="<?= base_url('stock') ?>">
+      <i class="fas fa-file"></i>
+      <span>Stock Produk</span>
+    </a>
+  </li>
+
+  <li class="nav-item">
     <a class="nav-link" href="#">
       <i class="fas fa-book"></i>
       <span>Report</span>

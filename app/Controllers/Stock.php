@@ -2,38 +2,19 @@
 
 namespace App\Controllers;
 use CodeIgniter\I18n\Time;
-use App\Models\ProductModel;
+use App\Models\StockModel;
 
 class Stock extends BaseController
 {
   public function __construct()
   {
-    $this->modelProduct = new ProductModel();
+    $this->modelStock = new StockModel();
   }
 
   public function index()
   {
-    // $data["products"] = $this->modelProduct->getProduct();
-    // return view('pages/product/product', $data);
-  }
-
-  public function stockIn()
-  {
-
-    return view('pages/stock/stockin');
-  }
-
-  public function store()
-  {
-    $data['products'] = $this->modelProduct->getProduct();
-    return view('pages/stock/stockin_add', $data);
-  }
-
-  public function create()
-  {
-    $request = $this->request->getPost();
-
-    dd($request);
+    $data["stock"] = $this->modelStock->getDataStock();
+    return view('pages/stock/stock_list', $data);
   }
 
 }

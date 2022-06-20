@@ -61,7 +61,7 @@ $routes->post('/transaksi-out/add', 'TransaksiOut::prosesAdd');
 
 $routes->get('/transaksi-out/print', 'TransaksiOut::printSuratJalan');
 
-$routes->post('/stock/in', 'Stock::create');
+$routes->get('/stock', 'Stock::index');
 
 
 

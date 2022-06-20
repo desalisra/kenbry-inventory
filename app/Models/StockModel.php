@@ -42,4 +42,13 @@ class StockModel extends Model
     $query = $this->query($sql);
     return $query->getRow();
   }
+
+  public function getDataStock(){
+    $sql = "SELECT * 
+            FROM t_stock
+            LEFT JOIN m_produk ON stock_produk = prd_id
+            WHERE stock_qty > 0";
+    $query = $this->query($sql);
+    return $query->getResult();
+  }
 }
