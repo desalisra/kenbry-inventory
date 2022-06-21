@@ -8,7 +8,6 @@ use App\Models\TDetailModel;
 use App\Models\StockModel;
 
 use Dompdf\Dompdf;
-use Mpdf\Mpdf;
 
 class TransaksiOut extends BaseController
 {
@@ -109,7 +108,7 @@ class TransaksiOut extends BaseController
     
     $data["header"] = $this->modelHeader->getDataOut("OT1002"); 
     $data["detail"] = $this->modelDetail->getDetail("OT1002"); 
-    $html = view('pages/print/surat_jalan',$data);
+    $html = view('print/surat_jalan',$data);
 
     $pdf->loadHtml($html);
     $pdf->setPaper('A4', 'portrait');

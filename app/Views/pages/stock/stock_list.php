@@ -2,7 +2,11 @@
 
 <?= $this->section('content') ?>
 
-
+<div class="mb-2">
+  <a href="<?= base_url('stock/print') ?>" target="_blank" class="btn btn-success btn-sm">
+    <i class="fas fa-print"></i> Print Laporan Stock
+  </a>
+</div>
 
 <!-- DataTales Example -->
 <div class="card shadow mb-4">
@@ -31,6 +35,7 @@
             <td><?= $value->prd_panjang ?></td>
             <td><?= $value->prd_lebar ?></td>
             <td><?= $value->stock_qty ?></td>
+          </tr>
           <?php endforeach; ?>
         </tbody>
       </table>
