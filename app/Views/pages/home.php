@@ -21,7 +21,7 @@
                 <p>Alamat: Kavling DPR, Jl. KH Hasyim Ashari Gg. Ambon No.174, RT.001/RW.004, Nerogtog, Kec. Cipondoh, Kota Tangerang, Banten 15145</p>
             </div>
             <div class="col  d-none d-lg-block mt-xxl-n4">
-                <img src="<?= base_url() ?>/img/statistics.svg" class="img-fluid px-xl-4 mt-xxl-n5" alt="img">
+                <img src="<?= base_url() ?>/img/logo.png" class="img-fluid px-xl-4 mt-xxl-n5" alt="img">
             </div>
         </div>
     </div>

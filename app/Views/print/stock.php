@@ -1,3 +1,5 @@
+<?php date_default_timezone_set("Asia/Jakarta"); ?>
+
 <!DOCTYPE html>
 <html lang="en">
 <head>
@@ -7,8 +9,12 @@
     <title>Report Stock</title>
 </head>
 <body>
-    
 
+<h2 align="center">Stock Produk</h2>
+
+<p>Tanggal : <?= date("d/m/Y") ?></p>
+<hr>
+<br>
 <table width="100%" cellspacing="0" border="1">
     <thead>
         <tr>

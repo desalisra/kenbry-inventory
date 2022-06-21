@@ -63,6 +63,7 @@ $routes->get('/transaksi-out/print', 'TransaksiOut::printSuratJalan');
 
 $routes->get('/stock', 'Stock::index');
 $routes->get('/stock/print', 'Stock::printStock');
+$routes->get('/stock/transaksi', 'Stock::printTransaksi');
 
 
 

@@ -25,14 +25,29 @@ class Stock extends BaseController
     
     $data["stock"] = $this->modelStock->getDataStock();
     $html = view('print/stock', $data);
-    return $html;
+    // return $html;
 
-    // $pdf->loadHtml($html);
-    // $pdf->setPaper('A4', 'portrait');
-    // $pdf->render();
-    // $pdf->stream('surat jalan.pdf', array(
-    //   "Attachment" => false
-    // ));
+    $pdf->loadHtml($html);
+    $pdf->setPaper('A4', 'portrait');
+    $pdf->render();
+    $pdf->stream('surat jalan.pdf', array(
+      "Attachment" => false
+    ));
+  }
+
+  public function printTransaksi()
+  {
+    $pdf = new Dompdf();
+    
+    $data["stock"] = $this->modelStock->pergerakanBarang();
+    $html = view('print/pergerakan_barang', $data);
+
+    $pdf->loadHtml($html);
+    $pdf->setPaper('A4', 'portrait');
+    $pdf->render();
+    $pdf->stream('surat jalan.pdf', array(
+      "Attachment" => false
+    ));
   }
 
 }

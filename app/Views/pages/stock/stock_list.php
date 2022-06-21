@@ -6,6 +6,9 @@
   <a href="<?= base_url('stock/print') ?>" target="_blank" class="btn btn-success btn-sm">
     <i class="fas fa-print"></i> Print Laporan Stock
   </a>
+  <a href="<?= base_url('stock/transaksi') ?>" target="_blank" class="btn btn-success btn-sm">
+    <i class="fas fa-print"></i> Print Pergerakan Produk
+  </a>
 </div>
 
 <!-- DataTales Example -->

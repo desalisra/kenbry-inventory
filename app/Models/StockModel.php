@@ -51,4 +51,23 @@ class StockModel extends Model
     $query = $this->query($sql);
     return $query->getResult();
   }
+
+  public function pergerakanBarang()
+  {
+    $sql = "SELECT trnd_id, trnd_produkId, prd_nama, prd_panjang, prd_lebar, trnd_qty, trnd_updateTime
+            FROM (
+              SELECT trnd_id, trnd_produkId, prd_nama, prd_panjang, prd_lebar, trnd_qty, trnd_updateTime
+              FROM transaksi_detail
+              LEFT JOIN m_produk ON trnd_produkId = prd_id
+              WHERE LEFT(trnd_id,2) = 'IN'
+              UNION 
+              SELECT trnd_id, trnd_produkId, prd_nama, prd_panjang, prd_lebar, trnd_qty, trnd_updateTime
+              FROM transaksi_detail
+              LEFT JOIN m_produk ON trnd_produkId = prd_id
+              WHERE LEFT(trnd_id,2) = 'OT'
+            ) A
+            ORDER BY trnd_updateTime ASC";
+    $query = $this->query($sql);
+    return $query->getResult();
+  }
 }
