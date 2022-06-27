@@ -40,12 +40,15 @@
         <thead>
           <tr>
             <th width="5%">No</th>
-            <th width="10%">Kode Produk</th>
-            <th width="45%">Nama Produk</th>
+            <th width="5%">Kode</th>
+            <th width="25%">Nama Produk</th>
+            <th width="10%">Jenis</th>
+            <th width="10%">Produk</th>
             <th width="5%">P</th>
             <th width="5%">L</th>
-            <th width="10%">Status</th>
-            <th width="20%">Action</th>
+            <th width="10%">Harga</th>
+            <th width="5%">Status</th>
+            <th width="15%">Action</th>
           </tr>
         </thead>
         <tbody>
@@ -54,11 +57,14 @@
             <td><?= $key + 1 ?></td>
             <td><?= $value->prd_id ?></td>
             <td><?= $value->prd_nama ?></td>
+            <td><?= $value->prd_jenis ?></td>
+            <td><?= $value->prd_lokal ?></td>
             <td><?= $value->prd_panjang ?></td>
             <td><?= $value->prd_lebar ?></td>
+            <td><?= number_format($value->prd_harga) ?></td>
             <td><?= $value->prd_aktifYN == "Y" ? "Aktif" : "Non Aktif" ?></td>
             <td>
-              <button class="btn btn-success btn-sm" onclick="return ubahData(<?= $value->prd_id ?>)">
+              <button class="btn btn-success btn-sm" onclick="return ubahData('<?= $value->prd_id ?>')">
                 <i class="fas fa-pen"></i> Edit
               </button>
               
@@ -95,12 +101,32 @@
             <input type="text" class="form-control" id="prd_nama" name="prd_nama" placeholder="Masukan nama ..." autocomplete="off">
           </div>
           <div class="form-group">
+            <label for="">Jenis</label>
+            <select class="form-control" id="prd_jenis" name="prd_jenis">
+              <option value="">-- Pilih Jenis --</option>
+              <option value="Marmer">Marmer</option>
+              <option value="Granit">Granit</option>
+            </select>
+          </div>
+          <div class="form-group">
+            <label for="">Lokal</label>
+            <select class="form-control" id="prd_lokal" name="prd_lokal">
+              <option value="">-- Pilih Jenis --</option>
+              <option value="Lokal">Lokal</option>
+              <option value="Import">Import</option>
+            </select>
+          </div>
+          <div class="form-group">
             <label for="">Panjang (m)</label>
-            <input type="text" class="form-control" id="prd_panjang" name="prd_panjang" placeholder="Masukan ukuran ..." autocomplete="off">
+            <input type="number" class="form-control" id="prd_panjang" name="prd_panjang" placeholder="Masukan ukuran ..." autocomplete="off">
           </div>
           <div class="form-group">
             <label for="">Lebar (m)</label>
-            <input type="text" class="form-control" id="prd_lebar" name="prd_lebar" placeholder="Masukan ukuran ..." autocomplete="off">
+            <input type="number" class="form-control" id="prd_lebar" name="prd_lebar" placeholder="Masukan ukuran ..." autocomplete="off">
+          </div>
+          <div class="form-group">
+            <label for="">Harga</label>
+            <input type="number" class="form-control" id="prd_harga" name="prd_harga" placeholder="Masukan harga ..." autocomplete="off">
           </div>
         </div>
         <div class="modal-footer">
@@ -116,8 +142,11 @@
   function tambahData(){
     $("#prd_id").val("");		
     $("#prd_nama").val("");		
+    $("#prd_jenis").val("");		
+    $("#prd_lokal").val("");		
     $("#prd_panjang").val("");		
-    $("#prd_lebar").val("");
+    $("#prd_lebar").val("");		
+    $("#prd_harga").val("");
     $("#ModalLabel").text("Add Produk")
     $("#produkModal").modal('show');	
   }
@@ -130,9 +159,12 @@
               dataType : 'json',
               success : function(data){	
                   $("#prd_id").val(data.prd_id);		
-                  $("#prd_nama").val(data.prd_nama);		
+                  $("#prd_nama").val(data.prd_nama);	
+                  $("#prd_jenis").val(data.prd_jenis);
+                  $("#prd_lokal").val(data.prd_lokal);
                   $("#prd_panjang").val(data.prd_panjang);		
                   $("#prd_lebar").val(data.prd_lebar);		
+                  $("#prd_harga").val(data.prd_harga);		
               }
           });
     $("#ModalLabel").text("Edit Produk")

@@ -24,6 +24,14 @@
     Master
   </div>
 
+  <!-- Nav Item - Karyawan -->
+  <li class="nav-item">
+    <a class="nav-link" href="<?= base_url('karyawan') ?>">
+      <i class="fas fa-users"></i>
+      <span>Master Karyawan</span>
+    </a>
+  </li>
+
   <!-- Nav Item - Procuct -->
   <li class="nav-item">
     <a class="nav-link" href="<?= base_url('produk') ?>">
@@ -31,6 +39,21 @@
       <span>Master Produk</span>
     </a>
   </li>
+
+  <!-- Nav Item - Customer -->
+  <li class="nav-item">
+    <a class="nav-link" href="<?= base_url('customer') ?>">
+      <i class="fas fa-store"></i>
+      <span>Master Customer</span>
+    </a>
+  </li>
+
+
+
+  <!-- Heading -->
+  <div class="sidebar-heading">
+    Transaksi
+  </div>
 
   <li class="nav-item">
     <a class="nav-link" href="<?= base_url('transaksi-in/') ?>">
@@ -45,6 +68,11 @@
       <span>Produk Out</span>
     </a>
   </li>
+
+  <!-- Heading -->
+  <div class="sidebar-heading">
+    Laporan
+  </div>
 
   <li class="nav-item">
     <a class="nav-link" href="<?= base_url('stock') ?>">

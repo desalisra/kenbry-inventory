@@ -42,8 +42,14 @@ $routes->get('/login', 'Auth::index');
 $routes->post('/login', 'Auth::login');
 $routes->get('/logout', 'Auth::logout');
 
+// Master Karyawan
+$routes->get('/karyawan', 'Karyawan::index');
+$routes->get('/karyawan/(:alphanum)', 'Karyawan::getKaryawanByNip/$1');
+$routes->post('/karyawan', 'Karyawan::create');
+$routes->delete('/karyawan/(:alphanum)', 'Karyawan::delete/$1');
+
 $routes->get('/produk', 'Produk::index');
-$routes->get('/produk/(:num)', 'Produk::getProdukById/$1');
+$routes->get('/produk/(:alphanum)', 'Produk::getProdukById/$1');
 $routes->post('/produk', 'Produk::create');
 $routes->delete('/produk/(:num)', 'Produk::delete/$1');
 

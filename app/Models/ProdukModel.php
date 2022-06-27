@@ -13,16 +13,23 @@ class ProdukModel extends Model
   protected $allowedFields    = ['prd_id', 'prd_nama', 'prd_aktifYN', 'prd_panjang', 'prd_lebar', 'prd_updateTime'];
 
 
-  public function generateId()
+  public function generateId($kode)
   {
-    $sql = "SELECT prd_id FROM m_produk ORDER BY prd_id DESC LIMIT 1";
+    $sql = "SELECT prd_id FROM m_produk WHERE left(prd_jenis,1) = left('$kode',1) AND left(prd_lokal,1) = right('$kode',1) ORDER BY prd_id DESC LIMIT 1";
     $query = $this->query($sql);
     $lastId = $query->getRow();
 
     if(is_null($lastId)){
-      return "1001";
+      return $kode . "01";
     }else{
-      return $lastId->prd_id + 1;
+      $kode = substr($lastId->prd_id,0,2); 
+      $no = substr($lastId->prd_id,2,2); 
+      $no = $no + 1;
+      if($no < 10){
+        return $kode . "0" . $no;
+      }else{
+        return $kode . $no;
+      }
     }
   }
 
@@ -41,8 +48,8 @@ class ProdukModel extends Model
 
   public function addProduk($data)
   {
-    $sql = "INSERT INTO m_produk (prd_id, prd_nama, prd_panjang, prd_lebar, prd_aktifYN, prd_updateTime)
-            VALUES (:prd_id:, :prd_nama:, :prd_panjang:, :prd_lebar:, :prd_aktifYN:, :prd_updateTime:)";
+    $sql = "INSERT INTO m_produk (prd_id, prd_nama, prd_jenis, prd_lokal, prd_panjang, prd_lebar, prd_harga, prd_aktifYN, prd_updateTime)
+            VALUES (:prd_id:, :prd_nama:, :prd_jenis:, :prd_lokal:, :prd_panjang:, :prd_lebar:, :prd_harga:, :prd_aktifYN:, :prd_updateTime:)";
     return $this->query($sql, $data);
   }
 

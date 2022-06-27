@@ -8,7 +8,7 @@ class Init extends Migration
 {
     public function up()
     {
-        //Table m_produk
+        //Create Table M_Produk
         $this->forge->addField([
             'prd_id' => [
                 'type' => 'varchar',
@@ -19,21 +19,33 @@ class Init extends Migration
                 'constraint' => 100,
                 'null' => true
             ],
-            'prd_panjang' => [
-                'type' => 'float',
-                'null' => true
+            'prd_jenis' => [
+                'type'       => 'ENUM',
+                'constraint' => ['Granit', 'Marmer'],
+                'default'    => 'Granit',
+            ],
+            'prd_lokal' => [
+                'type'       => 'ENUM',
+                'constraint' => ['Lokal', 'Import'],
+                'default'    => 'Lokal',
             ],
             'prd_lebar' => [
                 'type' => 'float',
                 'null' => true
             ],
+            'prd_panjang' => [
+                'type' => 'float',
+                'null' => true
+            ],
+            'prd_harga' => [
+                'type' => 'float',
+                'null' => true
+            ],
             'prd_aktifYN' => [
                 'type' => 'char',
-                'null' => true
             ],
             'prd_updateTime' => [
                 'type' => 'datetime',
-                'null' => true
             ],
         ]);
 
