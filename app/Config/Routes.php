@@ -53,6 +53,21 @@ $routes->get('/produk/(:alphanum)', 'Produk::getProdukById/$1');
 $routes->post('/produk', 'Produk::create');
 $routes->delete('/produk/(:num)', 'Produk::delete/$1');
 
+$routes->get('/customer', 'Customer::index');
+$routes->get('/customer/(:num)', 'Customer::getCustomerById/$1');
+$routes->post('/customer', 'Customer::create');
+$routes->delete('/customer/(:num)', 'Customer::delete/$1');
+
+
+// Receiving
+$routes->get('/receiving', 'Receiving::index');
+$routes->get('/receiving/detail/(:alphanum)', 'Receiving::detail/$1');
+$routes->get('/receiving/add', 'Receiving::formAdd');
+$routes->post('/receiving/add', 'Receiving::prosesAdd');
+
+
+$routes->get('/purchase', 'Purchase::index');
+$routes->post('/purchase', 'Purchase::prosesPesanan');
 
 
 $routes->get('/transaksi-in', 'TransaksiIn::listTransIn');

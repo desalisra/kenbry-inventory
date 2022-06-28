@@ -12,6 +12,15 @@ class StockModel extends Model
   protected $returnType       = 'object';
   protected $allowedFields    = ['stk_iteno', 'stk_qty', 'stk_updateTime'];
 
+  public function getDataStock(){
+    $sql = "SELECT * 
+            FROM M_Stock
+            LEFT JOIN m_produk ON stk_iteno = prd_id
+            WHERE stk_qty > 0";
+    $query = $this->query($sql);
+    return $query->getResult();
+  }
+
   public function insertStock($data)
   {
     $sql = "INSERT INTO M_Stock (stk_iteno, stk_qty, stk_updateTime)
@@ -43,31 +52,6 @@ class StockModel extends Model
     return $query->getRow();
   }
 
-  public function getDataStock(){
-    $sql = "SELECT * 
-            FROM M_Stock
-            LEFT JOIN m_produk ON stk_iteno = prd_id
-            WHERE stock_qty > 0";
-    $query = $this->query($sql);
-    return $query->getResult();
-  }
 
-  public function pergerakanBarang()
-  {
-    $sql = "SELECT trnd_id, trnd_produkId, prd_nama, prd_panjang, prd_lebar, trnd_qty, trnd_updateTime
-            FROM (
-              SELECT trnd_id, trnd_produkId, prd_nama, prd_panjang, prd_lebar, trnd_qty, trnd_updateTime
-              FROM transaksi_detail
-              LEFT JOIN m_produk ON trnd_produkId = prd_id
-              WHERE LEFT(trnd_id,2) = 'IN'
-              UNION 
-              SELECT trnd_id, trnd_produkId, prd_nama, prd_panjang, prd_lebar, trnd_qty, trnd_updateTime
-              FROM transaksi_detail
-              LEFT JOIN m_produk ON trnd_produkId = prd_id
-              WHERE LEFT(trnd_id,2) = 'OT'
-            ) A
-            ORDER BY trnd_updateTime ASC";
-    $query = $this->query($sql);
-    return $query->getResult();
-  }
+
 }

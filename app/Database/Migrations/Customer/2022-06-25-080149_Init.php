@@ -38,12 +38,13 @@ class Init extends Migration
             ],
         ]);
 
-        $this->forge->addKey('kry_nip', true);
-        return $this->forge->createTable('M_Karyawan', true);
+        $this->forge->addKey('cus_id', true);
+        return $this->forge->createTable('M_Customer', true);
     }
 
     public function down()
     {
-        //
+        //Drop Table M_Customer
+        return $this->forge->dropTable('M_Customer', true);
     }
 }

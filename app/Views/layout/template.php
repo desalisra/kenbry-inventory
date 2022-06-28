@@ -91,7 +91,7 @@
                 <option value="">Pilih Produk</option>
                 <?php if(isset($products)) : ?>
                   <?php foreach ($products as $key => $value) : ?>
-                    <option value="<?= $value->prd_id ?>"><?= $value->prd_nama . " - " . $value->prd_panjang . "m x ". $value->prd_lebar . "m" ?></option>
+                    <option value="<?= $value->prd_id ?>"><?= $value->prd_jenis . " - " . $value->prd_nama ?></option>
                   <?php endforeach ?>
                 <?php endif ?>
               </select>

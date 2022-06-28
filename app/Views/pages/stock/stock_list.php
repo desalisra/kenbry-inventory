@@ -21,12 +21,16 @@
       <table class="table table-bordered" id="dataTable" width="100%" cellspacing="0">
         <thead>
           <tr>
-            <th width="5%">No</th>
-            <th width="10%">Kode Produk</th>
-            <th width="45%">Nama Produk</th>
-            <th width="5%">P</th>
-            <th width="5%">L</th>
-            <th width="10%">Qty</th>
+            <th width="5%" rowspan="2" class="text-center">No</th>
+            <th width="10%" rowspan="2">Kode</th>
+            <th rowspan="2">Produk</th>
+            <th width="10%" colspan="2" class="text-center">Ukuran</th>
+            <th width="5%" rowspan="2" class="text-center">Qty</th>
+            <th width="5%" rowspan="2" class="text-center" >M2</th>
+          </tr>
+          <tr>
+            <th class="text-center">P</th>
+            <th class="text-center">L</th>
           </tr>
         </thead>
         <tbody>
@@ -35,9 +39,10 @@
             <td><?= $key + 1 ?></td>
             <td><?= $value->prd_id ?></td>
             <td><?= $value->prd_nama ?></td>
-            <td><?= $value->prd_panjang ?></td>
-            <td><?= $value->prd_lebar ?></td>
-            <td><?= $value->stock_qty ?></td>
+            <td class="text-center"><?= $value->prd_panjang ?></td>
+            <td class="text-center"><?= $value->prd_lebar ?></td>
+            <td class="text-center"><?= $value->stk_qty ?></td>
+            <td class="text-center"><?= $value->prd_panjang * $value->prd_lebar * $value->stk_qty ?></td>
           </tr>
           <?php endforeach; ?>
         </tbody>

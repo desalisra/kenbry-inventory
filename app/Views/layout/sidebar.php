@@ -56,9 +56,16 @@
   </div>
 
   <li class="nav-item">
-    <a class="nav-link" href="<?= base_url('transaksi-in/') ?>">
+    <a class="nav-link" href="<?= base_url('receiving/') ?>">
+      <i class="fas fa-box-open"></i>
+      <span>Receiving</span>
+    </a>
+  </li>
+
+  <li class="nav-item">
+    <a class="nav-link" href="<?= base_url('purchase/') ?>">
       <i class="fas fa-pen"></i>
-      <span>Produk In</span>
+      <span>Purchase</span>
     </a>
   </li>
 
