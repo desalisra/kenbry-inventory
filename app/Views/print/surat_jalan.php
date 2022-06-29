@@ -22,13 +22,13 @@
   </section>
   
   <section class="header">
-    <?php $date = date_create($header->sph_tanggal); ?>
+    <?php $date = date_create($header->ship_tanggal); ?>
     <p align="right">Jakarta, <?= date_format($date,"d/m/Y")?></p>
     
-    <p>No Sj : <b><?= substr($header->sph_number,5) ?></b></p>
+    <p>No Sj : <b><?= $header->ship_number ?></b></p>
     <p>Kpd Yth : <?= $header->cus_nama ?> </p>
     <p><?= $header->cus_alamat . " - " . $header->cus_tlpn ?></p>
-    <p>Deskripsi : <?= $header->sph_deskripsi ?></p>
+    <p>Deskripsi : <?= $header->ship_deskripsi ?></p>
   </section>
 
 
@@ -56,12 +56,12 @@
             <td><?= $value->prd_id . " - " . $value->prd_nama  ?></td>
             <td align="center"><?= $value->prd_panjang ?></td>
             <td align="center"><?= $value->prd_lebar ?></td>
-            <td align="center"><?= $value->spd_qty ?></td>
-            <td align="center"><?= $value->prd_panjang * $value->prd_lebar * $value->spd_qty ?></td>
-            <td><?= $value->spd_keterangan ?></td>
+            <td align="center"><?= $value->ship_qty ?></td>
+            <td align="center"><?= $value->prd_panjang * $value->prd_lebar * $value->ship_qty ?></td>
+            <td><?= $value->ship_keterangan ?></td>
           </tr>
-          <?php $totalQty += $value->spd_qty ?>
-          <?php $totalM2  += ($value->prd_panjang * $value->prd_lebar * $value->spd_qty) ?>
+          <?php $totalQty += $value->ship_qty ?>
+          <?php $totalM2  += ($value->prd_panjang * $value->prd_lebar * $value->ship_qty) ?>
         <?php endforeach; ?> 
         <tr><td colspan="7"></td></tr>
       </tbody>

@@ -2,10 +2,10 @@
 
 namespace App\Controllers;
 use CodeIgniter\I18n\Time;
-use App\Models\ProdukModel;
+
 use App\Models\StockModel;
-use App\Models\CustomerModel;
 use App\Models\PurchaseModel;
+use App\Models\ShippingModel;
 
 use Dompdf\Dompdf;
 
@@ -13,23 +13,22 @@ class Shipping extends BaseController
 {
   public function __construct()
   {
-    $datetime = Time::now('Asia/Jakarta', 'id_ID');
-    $this->modelProduk = new ProdukModel();
-    $this->modelStock = new StockModel(); 
-    $this->modelCust = new CustomerModel();  
+    $datetime = Time::now('Asia/Jakarta', 'id_ID'); 
+    $this->modelShipping = new ShippingModel();    
     $this->modelPurchase = new PurchaseModel();    
+    $this->modelStock = new StockModel();    
   }
 
   public function index()
   {
-    $data["purchase"] = $this->modelPurchase->getHeaderConfirm(); 
+    $data["shipping"] = $this->modelShipping->getHeader(); 
     return view('pages/shipping/shipping_list', $data);
   }
   
   public function detail($id)
   {
-    $data["header"] = $this->modelPurchase->getHeader($id); 
-    $data["detail"] = $this->modelPurchase->getDetail($id); 
+    $data["header"] = $this->modelShipping->getHeader($id); 
+    $data["detail"] = $this->modelShipping->getDetail($id); 
     return view('pages/shipping/shipping_detail', $data);
   }
 
@@ -37,8 +36,8 @@ class Shipping extends BaseController
   {
     $pdf = new Dompdf();
 
-    $data["header"] = $this->modelPurchase->getHeader($id); 
-    $data["detail"] = $this->modelPurchase->getDetail($id);
+    $data["header"] = $this->modelShipping->getHeader($id); 
+    $data["detail"] = $this->modelShipping->getDetail($id);
     $html = view('print/surat_jalan', $data);
 
     $pdf->loadHtml($html);
@@ -49,12 +48,30 @@ class Shipping extends BaseController
     ));
   }
 
-  public function kirim($id)
+  public function confirm($id)
   {
-    // Update Status -> Kirim
-    $result = $this->modelPurchase->updateStatus($id, "Kirim"); 
+    $datetime = Time::now('Asia/Jakarta', 'id_ID');
+    $detail = $this->modelShipping->getDetail($id); 
 
-    if($result) {
+    $this->modelShipping->db->transStart();
+
+    foreach ($detail as $key => $value) {
+      $data = [
+        "stk_iteno" => $value->ship_iteno,
+        "stk_qty" => $value->ship_value,
+        "stk_updateTime" => $datetime,
+      ];
+
+      $this->modelStock->minStock($data);
+    }
+
+    // Update Status -> Shipping
+    $invoice = "INV".substr($id,2); 
+    $result = $this->modelPurchase->updateStatus($invoice, "Shipping"); 
+
+    $this->modelShipping->db->transComplete();
+
+    if($this->modelShipping->db->transStatus()) {
       return redirect()->to(base_url('shipping'))->with('success', 'Data Berhasil Disimpan');
     }else{
       return redirect()->to(base_url('shipping'))->with('error', $this->modelPurchase->errros());

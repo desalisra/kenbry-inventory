@@ -95,11 +95,12 @@
       <table class="table table-bordered" id="dataTable" width="100%" cellspacing="0">
         <thead>
           <tr>
-            <th width="15%">Action</th>
+            <th width="20%">Action</th>
             <th width="15%">Invoice</th>
             <th width="10%">Tanggal</th>
             <th width="10%">Customer</th>
-            <th width="40%">Deskripsi</th>
+            <th width="30%">Deskripsi</th>
+            <th width="10%">Status</th>
             <th width="10%">Transaksi</th>
           </tr>
         </thead>
@@ -112,13 +113,17 @@
                 <i class="fas fa-file"></i> Detail
               </a>
               <a class="btn btn-secondary btn-sm" target="_blank" href="<?= base_url('purchase/print/' . $value->sph_number) ?>">
-                <i class="fas fa-print"></i> Print Invoice
+                <i class="fas fa-print"></i> Print
+              </a>
+              <a class="btn btn-primary btn-sm <?= $value->sph_status == "Pesanan" ? "" : "disabled" ?>" href="<?= base_url('purchase/confirm/' . $value->sph_number) ?>">
+                <i class="fas fa-check"></i> Confirm
               </a>
             </td>
             <td><?= $value->sph_number ?></td>
             <td><?= $value->sph_tanggal ?></td>
             <td><?= $value->cus_nama ?></td>
             <td><?= $value->sph_deskripsi ?></td>
+            <td><?= $value->sph_status ?></td>
             <td><?= number_format($value->sph_total) ?></td>
           </tr>
           <?php $total += $value->sph_total; ?>
@@ -126,7 +131,7 @@
         </tbody>
         <tfoot>
           <tr>
-            <th class="text-right" colspan="5">Total</th>
+            <th class="text-right" colspan="6">Total</th>
             <th><?= number_format($total); ?></th>
           </tr>
         </tfoot>

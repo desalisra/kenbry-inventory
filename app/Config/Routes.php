@@ -75,11 +75,13 @@ $routes->get('/purchase', 'Purchase::index');
 $routes->post('/purchase', 'Purchase::prosesPesanan');
 $routes->get('/purchase/detail/(:alphanum)', 'Purchase::detail/$1');
 $routes->get('/purchase/print/(:alphanum)', 'Purchase::print/$1');
+$routes->get('/purchase/confirm/(:alphanum)', 'Purchase::confirmPesanan/$1');
 
 $routes->get('/shipping', 'Shipping::index');
 $routes->get('/shipping/detail/(:alphanum)', 'Shipping::detail/$1');
+$routes->get('/shipping/confirm/(:alphanum)', 'Shipping::confirm/$1');
 $routes->get('/surat-jalan/(:alphanum)', 'Shipping::printSuratJalan/$1');
-$routes->get('/surat-jalan/kirim/(:alphanum)', 'Shipping::kirim/$1');
+
 
 
 $routes->get('/stock', 'Stock::index');

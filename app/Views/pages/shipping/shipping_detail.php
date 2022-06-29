@@ -2,12 +2,9 @@
 
 <?= $this->section('content') ?>
 <?php if(isset($header)) : ?>
-  <div class="row justify-content-between px-3 mb-2">
+  <div class="row container">
     <a href="<?= base_url('shipping') ?>" class="mb-3 font-weight-bold text-secondary">
       <i class="fas fa-arrow-left"></i> Kembali
-    </a>
-    <a href="<?= base_url('surat-jalan') . "/" . $header->sph_number ?>" target="_blank" class="btn btn-secondary btn-sm">
-      <i class="fas fa-print"></i> Surat Jalan
     </a>
   </div>
 
@@ -20,11 +17,11 @@
 
       <div class="row">
         <div class="col-md-2">INVOICE</div>
-        <div class="col-md-7"> : <?= $header->sph_number ?></div>
+        <div class="col-md-7"> : <?= $header->ship_number ?></div>
       </div>
       <div class="row">
         <div class="col-md-2">Tanggal</div>
-        <div class="col-md-7"> : <?= $header->sph_tanggal ?></div>
+        <div class="col-md-7"> : <?= $header->ship_tanggal ?></div>
       </div>
 
       
@@ -39,7 +36,7 @@
       
       <div class="row mb-3">
         <div class="col-md-2">Deskripsi</div>
-        <div class="col-md-7"> : <?= $header->sph_deskripsi ?></div>
+        <div class="col-md-7"> : <?= $header->ship_deskripsi ?></div>
       </div>
 
       <div class="table-responsive">
@@ -49,31 +46,27 @@
               <th width="5%" class="text-center">No</th>
               <th width="10%">Kode</th>
               <th>Nama Produk</th>
-              <th width="10%" class="text-center">Jml Satuan</th>
-              <th width="5%" class="text-center" >Harga Satuan</th>
-              <th width="5%" class="text-center" >Sub Total</th>
+              <th width="5%">P</th>
+              <th width="5%">L</th>
+              <th width="5%">Qty</th>
+              <th width="10%" class="text-center">Volume</th>
+              <th width="20%" class="text-center">Keterangan</th>
             </tr>
           </thead>
           <tbody>
-            <?php $total = 0; ?>
             <?php foreach($detail as $key => $value) : ?>
               <tr>
                 <td class="text-center"><?= $key + 1 ?></td>
                 <td><?= $value->prd_id ?></td>
                 <td><?= $value->prd_nama  ?></td>
-                <td class="text-center"><?= $value->prd_panjang * $value->prd_lebar * $value->spd_qty ?> m2</td>
-                <td class="text-center"><?= number_format($value->prd_harga) ?></td>
-                <td class="text-center"><?= number_format($value->spd_harga) ?></td>
+                <td><?= $value->prd_panjang  ?></td>
+                <td><?= $value->prd_lebar  ?></td>
+                <td><?= $value->ship_qty  ?></td>
+                <td class="text-center"><?= $value->prd_panjang * $value->prd_lebar * $value->ship_qty ?> m2</td>
+                <td><?= $value->ship_keterangan  ?></td>
               </tr>
-            <?php $total += $value->spd_harga ?>
             <?php endforeach; ?> 
           </tbody>
-          <tfoot>
-            <tr>
-              <th colspan="5" class="text-right">Total</th>
-              <th><?= number_format($total) ?></th>
-            </tr>
-          </tfoot>
         </table>
       </div>
     </div>

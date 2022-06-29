@@ -53,8 +53,9 @@
             <th width="15%">Invoice</th>
             <th width="10%">Tanggal</th>
             <th width="10%">Customer</th>
-            <th width="40%">Deskripsi</th>
+            <th width="30%">Deskripsi</th>
             <th width="10%">Transaksi</th>
+            <th width="10%">Status</th>
           </tr>
         </thead>
         <tbody>
@@ -74,6 +75,7 @@
             <td><?= $value->cus_nama ?></td>
             <td><?= $value->sph_deskripsi ?></td>
             <td><?= number_format($value->sph_total) ?></td>
+            <td><?= $value->sph_status ?></td>
           </tr>
           <?php $total += $value->sph_total; ?>
           <?php endforeach; ?>

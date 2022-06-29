@@ -30,7 +30,7 @@ class Init extends Migration
             ],
             'sph_status' => [
                 'type'       => 'ENUM',
-                'constraint' => ['Pesanan', 'Confirm', 'Send'],
+                'constraint' => ['Pesanan', 'Confirm', 'Shipping'],
                 'default'    => 'Pesanan',
             ],
             'sph_updateId' => [

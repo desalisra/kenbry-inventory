@@ -53,8 +53,9 @@
             <th width="15%">Invoice</th>
             <th width="10%">Tanggal</th>
             <th width="10%">Customer</th>
-            <th width="40%">Deskripsi</th>
+            <th width="30%">Deskripsi</th>
             <th width="10%">Transaksi</th>
+            <th width="10%">Status</th>
           </tr>
         </thead>
         <tbody>

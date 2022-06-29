@@ -6,6 +6,7 @@ use App\Models\ProdukModel;
 use App\Models\StockModel;
 use App\Models\CustomerModel;
 use App\Models\PurchaseModel;
+use App\Models\ShippingModel;
 
 use Dompdf\Dompdf;
 
@@ -17,7 +18,8 @@ class Purchase extends BaseController
     $this->modelProduk = new ProdukModel();
     $this->modelStock = new StockModel(); 
     $this->modelCust = new CustomerModel();  
-    $this->modelPurchase = new PurchaseModel();    
+    $this->modelPurchase = new PurchaseModel(); 
+    $this->modelShipping = new ShippingModel();  
   }
 
   public function index()
@@ -45,7 +47,7 @@ class Purchase extends BaseController
     // Check Stock Produk Cukup
     for($i = 0; $i < count($request["produk"]); $i++){
       $qtyStock = $this->modelStock->cekStock($request["produk"][$i], $request["qty"][$i]);
-      if($qtyStock < 0){
+      if($qtyStock->qty < 0){
         return redirect()->to(base_url('purchase'))->with('error', "Qty produk" . $request['produk'][$i] . " melibihi stock yang ada");
       }
     }
@@ -115,4 +117,45 @@ class Purchase extends BaseController
     ));
   }
   
+  public function confirmPesanan($id)
+  {
+    $datetime = Time::now('Asia/Jakarta', 'id_ID');
+
+    $this->modelPurchase->db->transStart();
+
+    // Update Status -> Confirm
+    $result = $this->modelPurchase->updateStatus($id, "Confirm"); 
+    $header = $this->modelPurchase->getHeader($id); 
+    $detail = $this->modelPurchase->getDetail($id); 
+
+    $data = [
+      "ship_number" => "DO" . substr($header->sph_number,3),
+      "ship_cusId" => $header->sph_cusId,
+      "ship_tanggal" => $header->sph_tanggal,
+      "ship_deskripsi" => $header->sph_deskripsi,
+      "ship_updateId" => "0000",
+      "ship_updateTime" => $datetime,
+    ];
+
+    $this->modelShipping->insertHeader($data);
+
+    foreach ($detail as $key => $value) {
+      $data = [
+        "ship_number" => "DO" . substr($value->spd_number,3),
+        "ship_iteno" => $value->spd_iteno,
+        "ship_qty" => $value->spd_qty,
+        "ship_keterangan" => $value->spd_keterangan,
+      ];
+
+      $this->modelShipping->insertDetail($data);
+    }
+
+    $this->modelPurchase->db->transComplete();
+
+    if($this->modelPurchase->db->transStatus()) {
+      return redirect()->to(base_url('purchase'))->with('success', 'Data Berhasil Disimpan');
+    }else{
+      return redirect()->to(base_url('purchase'))->with('error', $this->modelPurchase->errros());
+    }
+  }
 }
