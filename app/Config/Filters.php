@@ -71,8 +71,17 @@ class Filters extends BaseConfig
      * @var array
      */
     public $filters = [
-        // 'isLoggedIn' => ['before' => [
-        //     'home', 'produk', 'transaksi-in', 'transaksi-out', 'stock'
-        // ]]
+        'isLoggedIn' => ['before' => [
+            'home', 
+            'administrator', 
+            'karyawan', 
+            'produk', 
+            'customer',
+            'receiving',
+            'purchase',
+            'shipping',
+            'stock',
+            'history-transaksi',
+        ]]
     ];
 }

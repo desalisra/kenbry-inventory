@@ -17,7 +17,7 @@ class Member extends Seeder
             'mem_nama' => "Admin",
             'mem_email' => "admin@mail.com",
             'mem_password' => $password,
-            'mem_role' => 0
+            'mem_role' => "ADMIN"
         ];
 
         $member->insert($data);

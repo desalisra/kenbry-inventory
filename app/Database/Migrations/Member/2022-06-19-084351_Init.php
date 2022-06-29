@@ -31,7 +31,9 @@ class Init extends Migration
                 'type' => 'blob'
             ],
             'mem_role' => [
-                'type' => 'tinyint'
+                'type'       => 'ENUM',
+                'constraint' => ['ADMIN', 'FINANCE', 'GUDANG'],
+                'default'    => 'ADMIN',
             ],
         ]);
 

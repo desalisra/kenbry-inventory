@@ -41,6 +41,11 @@ $routes->addRedirect('/', 'home');
 $routes->get('/login', 'Auth::index');
 $routes->post('/login', 'Auth::login');
 $routes->get('/logout', 'Auth::logout');
+$routes->get('/administrator', 'Auth::adminForm');
+$routes->post('/administrator', 'Auth::addAccount');
+$routes->get('/administrator/(:num)', 'Auth::deleteAccount/$1');
+
+
 
 // Master Karyawan
 $routes->get('/karyawan', 'Karyawan::index');
@@ -68,24 +73,23 @@ $routes->post('/receiving/add', 'Receiving::prosesAdd');
 
 $routes->get('/purchase', 'Purchase::index');
 $routes->post('/purchase', 'Purchase::prosesPesanan');
+$routes->get('/purchase/detail/(:alphanum)', 'Purchase::detail/$1');
+$routes->get('/purchase/print/(:alphanum)', 'Purchase::print/$1');
 
+$routes->get('/shipping', 'Shipping::index');
+$routes->get('/shipping/detail/(:alphanum)', 'Shipping::detail/$1');
+$routes->get('/surat-jalan/(:alphanum)', 'Shipping::printSuratJalan/$1');
+$routes->get('/surat-jalan/kirim/(:alphanum)', 'Shipping::kirim/$1');
 
-$routes->get('/transaksi-in', 'TransaksiIn::listTransIn');
-$routes->get('/transaksi-in/detail/(:alphanum)', 'TransaksiIn::detailTransIn/$1');
-$routes->get('/transaksi-in/add', 'TransaksiIn::formAdd');
-$routes->post('/transaksi-in/add', 'TransaksiIn::prosesAdd');
-
-$routes->get('/transaksi-out', 'TransaksiOut::listTransOut');
-$routes->get('/transaksi-out/detail/(:alphanum)', 'TransaksiOut::detailTransOut/$1');
-$routes->get('/transaksi-out/add', 'TransaksiOut::formAdd');
-$routes->post('/transaksi-out/add', 'TransaksiOut::prosesAdd');
-
-$routes->get('/transaksi-out/print', 'TransaksiOut::printSuratJalan');
 
 $routes->get('/stock', 'Stock::index');
 $routes->get('/stock/print', 'Stock::printStock');
 $routes->get('/stock/transaksi', 'Stock::printTransaksi');
 
+$routes->get('/history-transaksi', 'Laporan::index');
+$routes->get('/history-transaksi/search', 'Laporan::search');
+$routes->get('/history-transaksi/detail/(:alphanum)', 'Laporan::detail/$1');
+$routes->get('/history-transaksi/print/(:alphanum)', 'Laporan::print/$1');
 
 
 

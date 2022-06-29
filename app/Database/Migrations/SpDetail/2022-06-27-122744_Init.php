@@ -25,7 +25,9 @@ class Init extends Migration
                 'type' => 'float',
             ],
             'spd_keterangan' => [
-                'type' => 'float',
+                'type' => 'varchar',
+                'constraint' => 100,
+                'null' => true,
             ],
         ]);
 

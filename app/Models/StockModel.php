@@ -51,7 +51,4 @@ class StockModel extends Model
     $query = $this->query($sql);
     return $query->getRow();
   }
-
-
-
 }

@@ -16,7 +16,7 @@ class ReceivingModel extends Model
     $query = $this->query($sql);
     $lastId = $query->getRow();
 
-    if(is_null($lastId->recv_number)){
+    if(is_null($lastId)){
       return "IN" . $month . "01";
     }else{
       $urut = substr($lastId->recv_number,4,2);

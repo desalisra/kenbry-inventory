@@ -15,18 +15,22 @@ class Init extends Migration
                 'constraint' => 12,
             ],
             'sph_cusId' => [
-                'type' => 'date',
+                'type' => 'int',
             ],
             'sph_tanggal' => [
+                'type'       => 'date',
+            ],
+            'sph_deskripsi' => [
                 'type'       => 'varchar',
                 'constraint' => 255,
+                'null' => true,
             ],
             'sph_total' => [
                 'type'       => 'float',
             ],
             'sph_status' => [
                 'type'       => 'ENUM',
-                'constraint' => ['Pesanan', 'Cofirm', 'Send'],
+                'constraint' => ['Pesanan', 'Confirm', 'Send'],
                 'default'    => 'Pesanan',
             ],
             'sph_updateId' => [

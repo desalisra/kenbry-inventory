@@ -24,23 +24,44 @@ class PurchaseModel extends Model
     if(is_null($lastId)){
       return $kode . "01";
     }else{
-      $urut = substr($lastId,8,2);
+      $urut = substr($lastId->sph_Number,8,2);
+      $urut++;
       if($urut < 10){
-        return $kode . "0" . $urut++;
+        return $kode . "0" . $urut;
       }else{
-        return $kode . $urut++;
+        return $kode . $urut;
       }
     }
+  }
+
+  public function getHeaderCurrent()
+  {
+    $sql = "SELECT * 
+            FROM t_sp_header
+            LEFT JOIN m_customer ON sph_cusId = cus_id 
+            WHERE DATE_FORMAT(sph_updateTime, '%Y%m%d') = DATE_FORMAT(NOW(), '%Y%m%d')  ";
+    $query = $this->query($sql);
+    return $query->getResult();
+  }
+
+  public function getHeaderConfirm()
+  {
+    $sql = "SELECT * 
+            FROM t_sp_header
+            LEFT JOIN m_customer ON sph_cusId = cus_id 
+            WHERE sph_status = 'Confirm'";
+    $query = $this->query($sql);
+    return $query->getResult();
   }
 
   public function getHeader($id = null)
   {
     if(!is_null($id)){
-      $sql = "SELECT * FROM t_receiving_header WHERE recv_number = '$id'";
+      $sql = "SELECT * FROM t_sp_header LEFT JOIN m_customer ON sph_cusId = cus_id WHERE sph_number = '$id'";
       $query = $this->query($sql);
       return $query->getRow();
     }else{
-      $sql = "SELECT * FROM t_receiving_header";
+      $sql = "SELECT * FROM t_sp_header LEFT JOIN m_customer ON sph_cusId = cus_id";
       $query = $this->query($sql);
       return $query->getResult();
     }
@@ -59,14 +80,31 @@ class PurchaseModel extends Model
   public function insertHeader($data)
   {
     $sql = "INSERT INTO t_sp_header (sph_number, sph_cusId, sph_tanggal, sph_deskripsi,sph_total, sph_status, sph_updateId, sph_updateTime)
-            VALUES (:sph_number:, :sph_cusId:, :sph_tanggal:, :sph_deskripsi:, :sph_total: :sph_updateId:, :sph_status:, :sph_updateTime:)";
+            VALUES (:sph_number:, :sph_cusId:, :sph_tanggal:, :sph_deskripsi:, :sph_total:, :sph_status:, :sph_updateId:, :sph_updateTime:)";
     return $this->query($sql, $data);
   }
 
   public function insertDetail($data)
   {
-    $sql = "INSERT INTO t_sp_detail (recv_number, recv_iteno, recv_qty, recv_keterangan)
-            VALUES (:recv_number:, :recv_iteno:, :recv_qty:, :recv_keterangan:)";
+    $sql = "INSERT INTO t_sp_detail (spd_number, spd_iteno, spd_qty, spd_harga, spd_keterangan)
+            VALUES (:spd_number:, :spd_iteno:, :spd_qty:, :spd_harga:, :spd_keterangan:)";
     return $this->query($sql, $data);
+  }
+
+  public function updateStatus($id, $status)
+  {
+    $sql = "UPDATE t_sp_header 
+            SET sph_status = '$status'
+            WHERE sph_number = '$id'";
+    return $this->query($sql);
+  }
+
+  public function getByPeriode($prdAwal, $prdAkhir)
+  {
+    $sql = "SELECT * FROM t_sp_header 
+            LEFT JOIN m_customer ON sph_cusId = cus_id
+            WHERE sph_tanggal BETWEEN '$prdAwal' AND '$prdAkhir'";
+    $query = $this->query($sql);
+    return $query->getResult();
   }
 }

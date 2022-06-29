@@ -7,7 +7,7 @@ use App\Models\StockModel;
 use App\Models\CustomerModel;
 use App\Models\PurchaseModel;
 
-use App\Models\ReceivingModel;
+use Dompdf\Dompdf;
 
 class Purchase extends BaseController
 {
@@ -18,22 +18,21 @@ class Purchase extends BaseController
     $this->modelStock = new StockModel(); 
     $this->modelCust = new CustomerModel();  
     $this->modelPurchase = new PurchaseModel();    
-    $this->modelReceiving = new ReceivingModel();
   }
 
   public function index()
   {
-    $data["products"] = $this->modelProduk->getProduk();
+    $data["products"] = $this->modelStock->getDataStock();
     $data["customer"] = $this->modelCust->getCustomer();
-    $data["receiving"] = $this->modelReceiving->getHeader(); 
+    $data["purchase"] = $this->modelPurchase->getHeaderCurrent(); 
     return view('pages/purchase/purchase', $data);
   }
   
   public function detail($id)
   {
-    $data["header"] = $this->modelReceiving->getHeader($id); 
-    $data["detail"] = $this->modelReceiving->getDetail($id); 
-    return view('pages/receiving/receiving_detail', $data);
+    $data["header"] = $this->modelPurchase->getHeader($id); 
+    $data["detail"] = $this->modelPurchase->getDetail($id); 
+    return view('pages/purchase/purchase_detail', $data);
   }
 
   public function prosesPesanan()
@@ -43,34 +42,32 @@ class Purchase extends BaseController
     $datetime = Time::now('Asia/Jakarta', 'id_ID');
     $total = 0;
 
+    // Check Stock Produk Cukup
+    for($i = 0; $i < count($request["produk"]); $i++){
+      $qtyStock = $this->modelStock->cekStock($request["produk"][$i], $request["qty"][$i]);
+      if($qtyStock < 0){
+        return redirect()->to(base_url('purchase'))->with('error', "Qty produk" . $request['produk'][$i] . " melibihi stock yang ada");
+      }
+    }
+
     $this->modelPurchase->db->transStart();
 
-    for($i = 0; $i < count($request["recv_iteno"]); $i++){
-      if($request["recv_iteno"][$i] != ""){
+    for($i = 0; $i < count($request["produk"]); $i++){
+      if($request["produk"][$i] != ""){
         // get Harga produk
-        $harga = $this->modelProduk->getProduk($request["recv_iteno"][$i]);
-        $harga = $harga * $request["spd_qty"][$i];
+        $harga = $this->modelProduk->getProduk($request["produk"][$i]);
+        $harga = (float)$harga->prd_harga * (float)$request["qty"][$i];
 
         $detail = [
           "spd_number" => $id,
-          "spd_iteno" => $request["spd_iteno"][$i],
-          "spd_qty" => $request["spd_qty"][$i],
+          "spd_iteno" => $request["produk"][$i],
+          "spd_qty" => $request["qty"][$i],
           "spd_harga" => $harga,
-          "spd_keterangan" => $request["spd_keterangan"][$i],
+          "spd_keterangan" => $request["ket"][$i],
         ];
   
         // Insert Detail
         $this->modelPurchase->insertDetail($detail);
-        
-        // Potong Stock
-        $stock = [
-          "stk_iteno" => $request["recv_iteno"][$i],
-          "stk_qty" => $request["recv_qty"][$i],
-          "stk_updateTime" => $datetime
-        ];
-  
-        // Update Stock Produk
-        $this->modelStock->minStock($stock);
 
         $total = $total + $harga;
       }
@@ -93,10 +90,29 @@ class Purchase extends BaseController
     $this->modelPurchase->db->transComplete();
 
     if($this->modelPurchase->db->transStatus()) {
-      return redirect()->to(base_url('receiving'))->with('success', 'Data Berhasil Disimpan');
+      return redirect()->to(base_url('purchase'))->with('success', 'Data Berhasil Disimpan');
     }else{
-      return redirect()->to(base_url('receiving'))->with('error', $this->modelPurchase->errros());
+      return redirect()->to(base_url('purchase'))->with('error', $this->modelPurchase->errros());
     }
+  }
+
+  public function print($id)
+  {
+    $pdf = new Dompdf();
+
+    // Update Status -> Confirm
+    $this->modelPurchase->updateStatus($id, "Confirm"); 
+
+    $data["header"] = $this->modelPurchase->getHeader($id); 
+    $data["detail"] = $this->modelPurchase->getDetail($id);
+    $html = view('pages/purchase/invoice_print', $data);
+
+    $pdf->loadHtml($html);
+    $pdf->setPaper('A4', 'portrait');
+    $pdf->render();
+    $pdf->stream('invoce.pdf', array(
+      "Attachment" => false
+    ));
   }
   
 }

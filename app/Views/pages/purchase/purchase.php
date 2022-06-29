@@ -2,12 +2,32 @@
 
 <?= $this->section('content') ?>
 
+<?php if(session()->getFlashdata('success')) : ?>
+  <div class="alert alert-success alert-dismissible show fade">
+    <div class="alert-body">
+      <button class="close" data-dismiss="alert">×</button>
+      <b>Success !</b>
+      <?= session()->getFlashdata('success')  ?>
+    </div>
+  </div>
+<?php endif; ?>
+
+<?php if(session()->getFlashdata('error')) : ?>
+  <div class="alert alert-danger alert-dismissible show fade">
+    <div class="alert-body">
+      <button class="close" data-dismiss="alert">×</button>
+      <b>Error !</b>
+      <?= session()->getFlashdata('error')  ?>
+    </div>
+  </div>
+<?php endif; ?>
+
 <div class="card shadow mb-4">
   <div class="card-header py-3">
     <h6 class="m-0 font-weight-bold text-primary">Purchase Produk</h6>
   </div>
   <div class="card-body">
-    <form action="<?= base_url('/purchase/add')  ?>" method="post">
+    <form action="<?= base_url('/purchase')  ?>" method="post">
       <div class="row">
         <div class="col-md-6 col-sm-12">
           
@@ -39,7 +59,7 @@
           </div>
           <div class="row mb-2">
             <div class="col-md-5">
-              <select class="form-control" name="recv_iteno[]" required>
+              <select class="form-control" name="produk[]" required>
                 <option value="">Pilih Produk</option>
                 <?php foreach ($products as $key => $value) : ?>
                   <option value="<?= $value->prd_id ?>"><?= $value->prd_jenis . " - " . $value->prd_nama ?></option>
@@ -47,10 +67,10 @@
               </select>
             </div>
             <div class="col-md-2">
-              <input type="number" class="form-control" name="recv_qty[]" placeholder="Qty" required>
+              <input type="number" class="form-control" name="qty[]" placeholder="Qty" required>
             </div>
             <div class="col-md-5">
-              <input type="text" class="form-control" name="recv_keterangan[]" placeholder="Keterangan" autocomplete="off">
+              <input type="text" class="form-control" name="ket[]" placeholder="Keterangan" autocomplete="off">
             </div>
           </div>
           
@@ -63,15 +83,6 @@
         </div>
       </div>
     </form>
-    
-      
-
-          
-
-      
-
-      
-      
   </div>
 </div>
 
@@ -84,28 +95,41 @@
       <table class="table table-bordered" id="dataTable" width="100%" cellspacing="0">
         <thead>
           <tr>
-            <th width="5%">No</th>
-            <th width="10%">No Transaksi</th>
+            <th width="15%">Action</th>
+            <th width="15%">Invoice</th>
             <th width="10%">Tanggal</th>
-            <th width="65%">Deskripsi</th>
-            <th width="10%">Action</th>
+            <th width="10%">Customer</th>
+            <th width="40%">Deskripsi</th>
+            <th width="10%">Transaksi</th>
           </tr>
         </thead>
         <tbody>
-          <?php foreach($receiving as $key => $value) : ?>
+          <?php $total = 0; ?>
+          <?php foreach($purchase as $key => $value) : ?>
           <tr>
-            <td><?= $key + 1 ?></td>
-            <td><?= $value->recv_number ?></td>
-            <td><?= $value->recv_tanggal ?></td>
-            <td><?= $value->recv_deskripsi ?></td>
             <td>
-              <a class="btn btn-success btn-sm" href="<?= base_url('receiving/detail/' . $value->recv_number) ?>">
+              <a class="btn btn-success btn-sm" href="<?= base_url('purchase/detail/' . $value->sph_number) ?>">
                 <i class="fas fa-file"></i> Detail
               </a>
+              <a class="btn btn-secondary btn-sm" target="_blank" href="<?= base_url('purchase/print/' . $value->sph_number) ?>">
+                <i class="fas fa-print"></i> Print Invoice
+              </a>
             </td>
+            <td><?= $value->sph_number ?></td>
+            <td><?= $value->sph_tanggal ?></td>
+            <td><?= $value->cus_nama ?></td>
+            <td><?= $value->sph_deskripsi ?></td>
+            <td><?= number_format($value->sph_total) ?></td>
           </tr>
+          <?php $total += $value->sph_total; ?>
           <?php endforeach; ?>
         </tbody>
+        <tfoot>
+          <tr>
+            <th class="text-right" colspan="5">Total</th>
+            <th><?= number_format($total); ?></th>
+          </tr>
+        </tfoot>
       </table>
     </div>
   </div>

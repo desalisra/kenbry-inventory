@@ -22,14 +22,15 @@
   </section>
   
   <section class="header">
-    <?php $date = date_create($header->trnh_date); ?>
+    <?php $date = date_create($header->sph_tanggal); ?>
     <p align="right">Jakarta, <?= date_format($date,"d/m/Y")?></p>
     
-    <p>No Sj : <?= $header->trnh_id ?></p>
-    <p>Kpd Yth : </p>
-    <p>Deskripsi : </p>
+    <p>No Sj : <b><?= substr($header->sph_number,5) ?></b></p>
+    <p>Kpd Yth : <?= $header->cus_nama ?> </p>
+    <p><?= $header->cus_alamat . " - " . $header->cus_tlpn ?></p>
+    <p>Deskripsi : <?= $header->sph_deskripsi ?></p>
   </section>
-  <hr>
+
 
   <section class="data">
     <table border="1" width="100%" cellspacing="0">
@@ -39,7 +40,8 @@
           <th align="left" rowspan="2">Produk</th>
           <th colspan="2">Ukuran</th>
           <th width="5%" rowspan="2">Qty</th>
-          <th rowspan="2">Keterangan</th>
+          <th width="10%" rowspan="2">M2</th>
+          <th width="20%" rowspan="2">Keterangan</th>
         </tr>
         <tr>
           <th width="5%">P</th>
@@ -47,17 +49,30 @@
         </tr>
       </thead>
       <tbody>
-      <?php foreach($detail as $key => $value) : ?>
+        <?php $totalQty = 0; $totalM2 = 0; ?>
+        <?php foreach($detail as $key => $value) : ?>
+          <tr>
+            <td align="center"><?= $key + 1 ?></td>
+            <td><?= $value->prd_id . " - " . $value->prd_nama  ?></td>
+            <td align="center"><?= $value->prd_panjang ?></td>
+            <td align="center"><?= $value->prd_lebar ?></td>
+            <td align="center"><?= $value->spd_qty ?></td>
+            <td align="center"><?= $value->prd_panjang * $value->prd_lebar * $value->spd_qty ?></td>
+            <td><?= $value->spd_keterangan ?></td>
+          </tr>
+          <?php $totalQty += $value->spd_qty ?>
+          <?php $totalM2  += ($value->prd_panjang * $value->prd_lebar * $value->spd_qty) ?>
+        <?php endforeach; ?> 
+        <tr><td colspan="7"></td></tr>
+      </tbody>
+      <tfoot>
         <tr>
-          <td align="center"><?= $key + 1 ?></td>
-          <td><?= $value->prd_id . " - " . $value->prd_nama  ?></td>
-          <td align="center"><?= $value->prd_panjang ?></td>
-          <td align="center"><?= $value->prd_lebar ?></td>
-          <td align="center"><?= $value->trnd_qty ?></td>
-          <td><?= $value->trnd_ket ?></td>
+          <th colspan="4">Total</th>
+          <th><?= $totalQty ?></th>
+          <th><?= $totalM2 ?></th>
+          <th></th>
         </tr>
-      <?php endforeach; ?> 
-    </tbody>
+      </tfoot>
     </table>
   </section>
   

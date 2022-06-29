@@ -24,13 +24,23 @@
     Master
   </div>
 
-  <!-- Nav Item - Karyawan -->
-  <li class="nav-item">
-    <a class="nav-link" href="<?= base_url('karyawan') ?>">
-      <i class="fas fa-users"></i>
-      <span>Master Karyawan</span>
-    </a>
-  </li>
+  
+  <?php if(session('role_user') == "FINANCE" || session('role_user') == "ADMIN") : ?>
+    <!-- Nav Item - Karyawan -->
+    <li class="nav-item">
+      <a class="nav-link" href="<?= base_url('karyawan') ?>">
+        <i class="fas fa-users"></i>
+        <span>Master Karyawan</span>
+      </a>
+    </li>
+    <!-- Nav Item - Customer -->
+    <li class="nav-item">
+      <a class="nav-link" href="<?= base_url('customer') ?>">
+        <i class="fas fa-store"></i>
+        <span>Master Customer</span>
+      </a>
+    </li>
+  <?php endif ?>
 
   <!-- Nav Item - Procuct -->
   <li class="nav-item">
@@ -40,27 +50,10 @@
     </a>
   </li>
 
-  <!-- Nav Item - Customer -->
-  <li class="nav-item">
-    <a class="nav-link" href="<?= base_url('customer') ?>">
-      <i class="fas fa-store"></i>
-      <span>Master Customer</span>
-    </a>
-  </li>
-
-
-
   <!-- Heading -->
   <div class="sidebar-heading">
     Transaksi
   </div>
-
-  <li class="nav-item">
-    <a class="nav-link" href="<?= base_url('receiving/') ?>">
-      <i class="fas fa-box-open"></i>
-      <span>Receiving</span>
-    </a>
-  </li>
 
   <li class="nav-item">
     <a class="nav-link" href="<?= base_url('purchase/') ?>">
@@ -69,12 +62,20 @@
     </a>
   </li>
 
-  <li class="nav-item">
-    <a class="nav-link" href="<?= base_url('transaksi-out/') ?>">
-      <i class="fas fa-truck"></i>
-      <span>Produk Out</span>
-    </a>
-  </li>
+  <?php if(session('role_user') == "GUDANG" || session('role_user') == "ADMIN") : ?>
+    <li class="nav-item">
+      <a class="nav-link" href="<?= base_url('receiving/') ?>">
+        <i class="fas fa-box-open"></i>
+        <span>Receiving</span>
+      </a>
+    </li>
+    <li class="nav-item">
+      <a class="nav-link" href="<?= base_url('shipping/') ?>">
+        <i class="fas fa-truck"></i>
+        <span>Kirim Barang</span>
+      </a>
+    </li>
+  <?php endif ?>
 
   <!-- Heading -->
   <div class="sidebar-heading">
@@ -85,6 +86,13 @@
     <a class="nav-link" href="<?= base_url('stock') ?>">
       <i class="fas fa-book"></i>
       <span>Stock Produk</span>
+    </a>
+  </li>
+
+  <li class="nav-item">
+    <a class="nav-link" href="<?= base_url('history-transaksi') ?>">
+      <i class="fas fa-calendar"></i>
+      <span>History Transaksi</span>
     </a>
   </li>
 
