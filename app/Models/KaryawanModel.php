@@ -26,7 +26,12 @@ class KaryawanModel extends Model
       return "P" . $y . $m . "01";
     }else{
       $urut = substr($lastNip->kry_nip,5,2); 
-      return "P" . $y . $m . $urut++;
+      $urut++;
+      if($urut < 10){
+        return "P" . $y . $m . "0" . $urut;
+      }else{
+        return "P" . $y . $m . $urut;
+      }
     }
   }
 

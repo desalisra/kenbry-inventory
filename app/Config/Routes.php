@@ -82,8 +82,6 @@ $routes->get('/shipping/detail/(:alphanum)', 'Shipping::detail/$1');
 $routes->get('/shipping/confirm/(:alphanum)', 'Shipping::confirm/$1');
 $routes->get('/surat-jalan/(:alphanum)', 'Shipping::printSuratJalan/$1');
 
-
-
 $routes->get('/stock', 'Stock::index');
 $routes->get('/stock/print', 'Stock::printStock');
 $routes->get('/stock/transaksi', 'Stock::printTransaksi');
@@ -92,6 +90,8 @@ $routes->get('/history-transaksi', 'Laporan::index');
 $routes->get('/history-transaksi/search', 'Laporan::search');
 $routes->get('/history-transaksi/detail/(:alphanum)', 'Laporan::detail/$1');
 $routes->get('/history-transaksi/print/(:alphanum)', 'Laporan::print/$1');
+$routes->get('/report', 'Laporan::laporan');
+$routes->post('/report', 'Laporan::download');
 
 
 

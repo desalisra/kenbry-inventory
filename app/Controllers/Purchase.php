@@ -102,9 +102,6 @@ class Purchase extends BaseController
   {
     $pdf = new Dompdf();
 
-    // Update Status -> Confirm
-    $this->modelPurchase->updateStatus($id, "Confirm"); 
-
     $data["header"] = $this->modelPurchase->getHeader($id); 
     $data["detail"] = $this->modelPurchase->getDetail($id);
     $html = view('pages/purchase/invoice_print', $data);

@@ -30,5 +30,27 @@ class Laporan extends BaseController
     return view('pages/laporan/transaksi_detail', $data);
   }
 
+  public function laporan()
+  {
+    return view('pages/laporan/laporan');
+  }
+
+  public function download()
+  {
+    $request = $this->request->getPost();
+    $html = "";
+
+    if($request == "purchase"){
+      $data["purchase"] = $this->modelPurchase->laporanPurchase($prdAwal, $prdAkhir); 
+      $html = view('pages/print/invoice_print', $data);
+    }
+
+    $pdf->loadHtml($html);
+    $pdf->setPaper('A4', 'portrait');
+    $pdf->render();
+    $pdf->stream('invoce.pdf', array(
+      "Attachment" => false
+    ));
+  }
 
 }

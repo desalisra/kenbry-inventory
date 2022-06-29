@@ -107,4 +107,14 @@ class PurchaseModel extends Model
     $query = $this->query($sql);
     return $query->getResult();
   }
+
+  public function laporanPurchase($prdAwal, $prdAkhir)
+  {
+    $sql = "SELECT * FROM t_sp_header 
+            LEFT JOIN t_sp_detail ON sph_number = spd_number
+            LEFT JOIN m_customer ON sph_cusId = cus_id
+            WHERE sph_tanggal BETWEEN '$prdAwal' AND '$prdAkhir'";
+    $query = $this->query($sql);
+    return $query->getResult();
+  }
 }
