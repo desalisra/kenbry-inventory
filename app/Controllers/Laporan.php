@@ -42,7 +42,7 @@ class Laporan extends BaseController
 
     if($request == "purchase"){
       $data["purchase"] = $this->modelPurchase->laporanPurchase($prdAwal, $prdAkhir); 
-      $html = view('pages/print/invoice_print', $data);
+      $html = view('pages/print/lap_purchase', $data);
     }
 
     $pdf->loadHtml($html);

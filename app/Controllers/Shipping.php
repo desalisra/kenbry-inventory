@@ -51,6 +51,13 @@ class Shipping extends BaseController
   public function confirm($id)
   {
     $datetime = Time::now('Asia/Jakarta', 'id_ID');
+    $invoice = "INV".substr($id,2); 
+
+    $purchase = $this->modelPurchase->getHeader($invoice); 
+    if($purchase->sph_status == "Shipping"){
+      return redirect()->to(base_url('shipping'))->with('error', "Status Pesanan ini sudah pernah di Confirm");
+    }
+
     $detail = $this->modelShipping->getDetail($id); 
 
     $this->modelShipping->db->transStart();
@@ -58,7 +65,7 @@ class Shipping extends BaseController
     foreach ($detail as $key => $value) {
       $data = [
         "stk_iteno" => $value->ship_iteno,
-        "stk_qty" => $value->ship_value,
+        "stk_qty" => $value->ship_qty,
         "stk_updateTime" => $datetime,
       ];
 
@@ -66,13 +73,12 @@ class Shipping extends BaseController
     }
 
     // Update Status -> Shipping
-    $invoice = "INV".substr($id,2); 
     $result = $this->modelPurchase->updateStatus($invoice, "Shipping"); 
 
     $this->modelShipping->db->transComplete();
 
     if($this->modelShipping->db->transStatus()) {
-      return redirect()->to(base_url('shipping'))->with('success', 'Data Berhasil Disimpan');
+      return redirect()->to(base_url('shipping'))->with('success', 'Data Berhasil Di confirm');
     }else{
       return redirect()->to(base_url('shipping'))->with('error', $this->modelPurchase->errros());
     }
