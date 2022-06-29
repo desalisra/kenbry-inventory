@@ -23,7 +23,8 @@
             <th width="45%">Nama Produk</th>
             <th width="5%">P</th>
             <th width="5%">L</th>
-            <th width="10%">Qty</th>
+            <th width="5%">Qty</th>
+            <th width="10%">M2</th>
         </tr>
     </thead>
     <tbody>
@@ -34,7 +35,8 @@
             <td><?= $value->prd_nama ?></td>
             <td><?= $value->prd_panjang ?></td>
             <td><?= $value->prd_lebar ?></td>
-            <td><?= $value->stock_qty ?></td>
+            <td><?= $value->stk_qty ?></td>
+            <td><?= $value->prd_panjang * $value->prd_lebar * $value->stk_qty ?></td>
         </tr>
         <?php endforeach; ?>
     </tbody>

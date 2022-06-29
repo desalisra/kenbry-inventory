@@ -24,7 +24,7 @@
 
 <div class="card shadow mb-4">
   <div class="card-body">
-    <form action="<?= base_url('report/download')  ?>" method="post">
+    <form action="<?= base_url('report')  ?>" method="post">
       <div class="form-group">
         <label for="">Jenis Laporan</label>
         <select class="form-control" name="jenis" required>

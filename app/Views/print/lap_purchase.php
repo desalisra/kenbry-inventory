@@ -11,7 +11,7 @@
   <hr>
 
   <?php foreach ($variable as $k => $v) : ?>
-  
+    <p><?= $v->cus_nama . " - " . $v->sph_number ?></p>
   <?php endforeach ?>
 </body>
 </html>
