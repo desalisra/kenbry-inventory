@@ -3,12 +3,16 @@
 namespace App\Controllers;
 use CodeIgniter\I18n\Time;
 use App\Models\PurchaseModel;
+use App\Models\ShippingModel;
+
+use Dompdf\Dompdf;
 
 class Laporan extends BaseController
 {
   public function __construct()
   {
     $this->modelPurchase = new PurchaseModel();    
+    $this->modelShipping = new ShippingModel();    
   }
 
   public function index()
@@ -37,18 +41,22 @@ class Laporan extends BaseController
 
   public function download()
   {
+    $pdf = new Dompdf();
     $request = $this->request->getPost();
     $html = "";
 
-    if($request == "purchase"){
-      $data["purchase"] = $this->modelPurchase->laporanPurchase($prdAwal, $prdAkhir); 
-      $html = view('pages/print/lap_purchase', $data);
+    if($request["jenis"] == "purchase"){
+      $data["purchase"] = $this->modelPurchase->laporanPurchase($request["prdAwal"], $request["prdAkhir"]); 
+      $html = view('print/lap_purchase', $data);
+    }else{
+      $data["shipping"] = $this->modelShipping->laporanShipping($request["prdAwal"], $request["prdAkhir"]); 
+      $html = view('print/lap_shipping', $data);
     }
 
     $pdf->loadHtml($html);
     $pdf->setPaper('A4', 'portrait');
     $pdf->render();
-    $pdf->stream('invoce.pdf', array(
+    $pdf->stream('report.pdf', array(
       "Attachment" => false
     ));
   }

@@ -46,4 +46,16 @@ class ShippingModel extends Model
     return $this->query($sql, $data);
   }
 
+
+  public function laporanShipping($prdAwal, $prdAkhir)
+  {
+    $sql = "SELECT * 
+            FROM t_shipping_header A
+            LEFT JOIN t_shipping_detail B ON A.ship_number = B.ship_number
+            LEFT JOIN m_customer ON A.ship_cusId = cus_id
+            LEFT JOIN m_produk ON B.ship_iteno = prd_id
+            WHERE ship_tanggal BETWEEN '$prdAwal' AND '$prdAkhir'";
+    $query = $this->query($sql);
+    return $query->getResult();
+  }
 }
