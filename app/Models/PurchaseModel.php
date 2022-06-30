@@ -20,11 +20,10 @@ class PurchaseModel extends Model
     $query = $this->query($sql);
     $lastId = $query->getRow();
 
-
     if(is_null($lastId)){
       return $kode . "01";
     }else{
-      $urut = substr($lastId->sph_Number,8,2);
+      $urut = substr($lastId->sph_Number,9,2);
       $urut++;
       if($urut < 10){
         return $kode . "0" . $urut;
