@@ -57,8 +57,11 @@ class ProdukModel extends Model
   {
     $sql = "UPDATE m_produk 
             SET prd_nama = :prd_nama:,
+                prd_jenis = :prd_jenis:,
+                prd_lokal = :prd_lokal:,
                 prd_panjang = :prd_panjang:,
                 prd_lebar = :prd_lebar:,
+                prd_harga = :prd_harga:,
                 prd_updateTime = :prd_updateTime:
             WHERE prd_id = :prd_id:";
     return $this->query($sql, $data);

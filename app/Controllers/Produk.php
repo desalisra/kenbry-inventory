@@ -67,8 +67,11 @@ class Produk extends BaseController
       $data = [
         "prd_id" => $request['prd_id'],
         "prd_nama" => $request['prd_nama'],
+        "prd_jenis" => $request["prd_jenis"],
+        "prd_lokal" => $request["prd_lokal"],
         "prd_panjang" => $request['prd_panjang'],
         "prd_lebar" => $request['prd_lebar'],
+        "prd_harga" => $request['prd_harga'],
         "prd_aktifYN" => "Y",
         "prd_updateTime" => $datetime,
       ];

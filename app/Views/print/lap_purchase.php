@@ -19,19 +19,36 @@
       <td>M2</td>
       <td>Sub Total</td>
     </tr>
-    <?php $invoice = ""; ?>
+    <?php $invoice = ""; $total = 0; $maxKey = count($purchase);  ?>
     <?php foreach ($purchase as $k => $v) : ?>
       <?php if ($v->sph_number != $invoice) : ?>
+        <?php if($total > 0 ) : ?>
+          <tr>
+            <td style="padding: 10px 0;" colspan="2"><b>Grand Total</b></td>
+            <td style="padding: 10px 0;"><?= number_format($total) ?></td>
+            <?php $total = 0 ?>
+          </tr>
+        <?php endif ?>
         <tr>
-          <td style="padding: 10px 0;" colspan="3"><b><?= $v->sph_number . " - " . $v->cus_nama ?></b></td>
+          <td style="padding: 10px 0;" colspan="2"><b><?= $v->sph_number . " - " . $v->cus_nama ?></b></td>
+          <td style="padding: 10px 0;"><small><?= $v->sph_tanggal; ?></small></td>
         </tr>
       <?php endif ?>
       <tr>
         <td style="padding-left: 20px"><?= $v->spd_iteno . " - " . $v->prd_nama; ?></td>
         <td><?= $v->prd_panjang * $v->prd_lebar * $v->spd_qty ?></td>
         <td><?= number_format($v->prd_harga * $v->spd_qty) ?></td>
+        <?php $total = $total + ($v->prd_harga * $v->spd_qty) ?>
+        <?php $invoice = $v->sph_number ?>
       </tr>
-      <?php $invoice = $v->sph_number ?>
+      
+      <?php if($k == $maxKey - 1) : ?>
+        <tr>
+          <td style="padding: 10px 0;" colspan="2"><b>Grand Total</b></td>
+          <td style="padding: 10px 0;"><?= number_format($total) ?></td>
+          <?php $total = 0 ?>
+        </tr>
+      <?php endif?>
     <?php endforeach ?>
   </table>
 </body>

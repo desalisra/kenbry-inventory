@@ -13,10 +13,22 @@ class StockModel extends Model
   protected $allowedFields    = ['stk_iteno', 'stk_qty', 'stk_updateTime'];
 
   public function getDataStock(){
-    $sql = "SELECT * 
-            FROM M_Stock
-            LEFT JOIN m_produk ON stk_iteno = prd_id
-            WHERE stk_qty > 0";
+    // $sql = "SELECT * 
+    //         FROM M_Stock
+    //         LEFT JOIN m_produk ON stk_iteno = prd_id
+    //         WHERE stk_qty > 0";
+    $sql = "SELECT A.number, A.tanggal, A.kdProduk, A.nmProduk, A.qty
+    FROM (
+      SELECT A.recv_number AS number,A.recv_tanggal AS tanggal,recv_iteno AS kdProduk,prd_nama AS nmProduk,recv_qty AS qty
+      FROM t_receiving_header A
+      LEFT JOIN t_receiving_detail B ON A.recv_number = B.recv_number 
+      LEFT JOIN m_produk C ON B.recv_iteno = C.prd_id 
+      UNION
+      SELECT A.ship_number AS number,A.ship_tanggal AS tanggal, B.ship_iteno AS kdProduk, C.prd_nama AS nmProduk,B.ship_qty AS qty
+      FROM t_shipping_header A
+      LEFT JOIN t_shipping_detail B ON A.ship_number = B.ship_number
+      LEFT JOIN m_produk C ON B.ship_iteno = C.prd_id 
+    ) A";
     $query = $this->query($sql);
     return $query->getResult();
   }

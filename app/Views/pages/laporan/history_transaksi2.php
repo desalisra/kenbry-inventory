@@ -66,7 +66,7 @@
               <a class="btn btn-success btn-sm" href="<?= base_url('history-transaksi/detail/' . $value->sph_number) ?>">
                 <i class="fas fa-file"></i> Detail
               </a>
-              <a class="btn btn-secondary btn-sm" target="_blank" href="<?= base_url('history-transaksi/detail/' . $value->sph_number) ?>">
+              <a class="btn btn-secondary btn-sm" target="_blank" href="<?= base_url('purchase/print/' . $value->sph_number) ?>">
                 <i class="fas fa-print"></i> Print Invoice
               </a>
             </td>
