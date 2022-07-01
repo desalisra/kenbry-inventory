@@ -19,7 +19,7 @@
     <thead>
         <tr>
             <th width="10%">Tanggal</th>
-            <th width="10%">No Transaksi</th>
+            <th width="15%">No Transaksi</th>
             <th width="45%">Nama Produk</th>
             <th width="5%">In / Out</th>
             <th width="5%">qty</th>
