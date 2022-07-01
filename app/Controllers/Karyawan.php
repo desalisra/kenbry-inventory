@@ -73,9 +73,9 @@ class Karyawan extends BaseController
   {
     $result = $this->modelKaryawan->deleteKaryawan($nip);
     if($result) {
-      return redirect()->to(base_url('produk'))->with('success', 'Data Berhasil Dihapus');
+      return redirect()->to(base_url('karyawan'))->with('success', 'Data Berhasil Dihapus');
     }else{
-      return redirect()->to(base_url('produk'))->with('error', 'Data Gagal Dihapus');
+      return redirect()->to(base_url('karyawan'))->with('error', 'Data Gagal Dihapus');
     }
   }
 

@@ -55,12 +55,14 @@
     Transaksi
   </div>
 
+  <?php if(session('role_user') == "FINANCE" || session('role_user') == "ADMIN") : ?>
   <li class="nav-item">
     <a class="nav-link" href="<?= base_url('purchase/') ?>">
       <i class="fas fa-pen"></i>
       <span>Purchase</span>
     </a>
   </li>
+  <?php endif ?>
 
   <?php if(session('role_user') == "GUDANG" || session('role_user') == "ADMIN") : ?>
     <li class="nav-item">
@@ -82,19 +84,23 @@
     Laporan
   </div>
 
+  <?php if(session('role_user') == "GUDANG" || session('role_user') == "ADMIN") : ?>
   <li class="nav-item">
     <a class="nav-link" href="<?= base_url('stock') ?>">
       <i class="fas fa-book"></i>
       <span>Stock Produk</span>
     </a>
   </li>
+  <?php endif ?>
 
+  <?php if(session('role_user') == "FINANCE" || session('role_user') == "ADMIN") : ?>
   <li class="nav-item">
     <a class="nav-link" href="<?= base_url('history-transaksi') ?>">
       <i class="fas fa-calendar"></i>
       <span>History Transaksi</span>
     </a>
   </li>
+  <?php endif ?>
 
   <li class="nav-item">
     <a class="nav-link" href="<?= base_url('report') ?>">

@@ -56,7 +56,7 @@ $routes->delete('/karyawan/(:alphanum)', 'Karyawan::delete/$1');
 $routes->get('/produk', 'Produk::index');
 $routes->get('/produk/(:alphanum)', 'Produk::getProdukById/$1');
 $routes->post('/produk', 'Produk::create');
-$routes->delete('/produk/(:num)', 'Produk::delete/$1');
+$routes->delete('/produk/(:alphanum)', 'Produk::delete/$1');
 
 $routes->get('/customer', 'Customer::index');
 $routes->get('/customer/(:num)', 'Customer::getCustomerById/$1');

@@ -24,7 +24,7 @@ class Purchase extends BaseController
 
   public function index()
   {
-    $data["products"] = $this->modelStock->getDataStock();
+    $data["products"] = $this->modelProduk->getProduk();
     $data["customer"] = $this->modelCust->getCustomer();
     $data["purchase"] = $this->modelPurchase->getHeaderCurrent(); 
     return view('pages/purchase/purchase', $data);

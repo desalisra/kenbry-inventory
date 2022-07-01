@@ -68,7 +68,7 @@
                 <i class="fas fa-pen"></i> Edit
               </button>
               
-              <form action="<?= base_url('product/'.$value->prd_id) ?>" method="post" class="d-inline">
+              <form action="<?= base_url('produk/'.$value->prd_id) ?>" method="post" class="d-inline">
                 <input type="hidden" name="_method" value="DELETE">
                 <button class="btn btn-danger btn-sm">
                   <i class="fas fa-trash"></i> Delete

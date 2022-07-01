@@ -23,7 +23,7 @@ class Stock extends BaseController
   {
     $pdf = new Dompdf();
     
-    $data["stock"] = $this->modelStock->getDataStock();
+    $data["stock"] = $this->modelStock->pergerakanBarang();
     $html = view('print/stock', $data);
     // return $html;
 

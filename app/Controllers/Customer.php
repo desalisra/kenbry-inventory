@@ -65,9 +65,9 @@ class Customer extends BaseController
   {
     $result = $this->modelCustomer->deleteCustomer($id);
     if($result) {
-      return redirect()->to(base_url('produk'))->with('success', 'Data Berhasil Dihapus');
+      return redirect()->to(base_url('customer'))->with('success', 'Data Berhasil Dihapus');
     }else{
-      return redirect()->to(base_url('produk'))->with('error', 'Data Gagal Dihapus');
+      return redirect()->to(base_url('customer'))->with('error', 'Data Gagal Dihapus');
     }
   }
 

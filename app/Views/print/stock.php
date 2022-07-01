@@ -18,25 +18,24 @@
 <table width="100%" cellspacing="0" border="1">
     <thead>
         <tr>
-            <th width="5%">No</th>
-            <th width="10%">Kode Produk</th>
+            <th width="10%">Tanggal</th>
+            <th width="10%">No Transaksi</th>
             <th width="45%">Nama Produk</th>
-            <th width="5%">P</th>
-            <th width="5%">L</th>
-            <th width="5%">Qty</th>
-            <th width="10%">M2</th>
+            <th width="5%">In / Out</th>
+            <th width="5%">qty</th>
+            <th width="5%">M2</th>
         </tr>
     </thead>
     <tbody>
         <?php foreach($stock as $key => $value) : ?>
         <tr>
-            <td><?= $key + 1 ?></td>
-            <td><?= $value->prd_id ?></td>
-            <td><?= $value->prd_nama ?></td>
-            <td><?= $value->prd_panjang ?></td>
-            <td><?= $value->prd_lebar ?></td>
-            <td><?= $value->stk_qty ?></td>
-            <td><?= $value->prd_panjang * $value->prd_lebar * $value->stk_qty ?></td>
+            <td><?= $value->tanggal ?></td>
+            <td><?= $value->number ?></td>
+            <td><?= $value->kdProduk . " - " . $value->nmProduk ?></td>
+
+            <td align="center"><?= substr($value->number, 0, 2) == "IN" ? "In" : "Out" ?></td>
+            <td align="center"><?= $value->qty ?></td>
+            <td align="center"><?= $value->panjang * $value->lebar * $value->qty ?></td>
         </tr>
         <?php endforeach; ?>
     </tbody>
