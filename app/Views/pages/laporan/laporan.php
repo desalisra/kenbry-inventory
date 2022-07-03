@@ -29,8 +29,14 @@
         <label for="">Jenis Laporan</label>
         <select class="form-control" name="jenis" required>
           <option value="">-- Pilih Jenis Laporan --</option>
-          <option value="purchase">Purchasing</option>
-          <option value="shipping">Shipping</option>
+          <?php if(session('role_user') == "ADMIN") { ?>
+            <option value="purchase">Purchasing</option>
+            <option value="shipping">Shipping</option>
+          <?php } else if(session('role_user') == "FINANCE") { ?>
+            <option value="purchase">Purchasing</option>
+          <?php } else if(session('role_user') == "GUDANG") { ?>
+            <option value="shipping">Shipping</option>
+          <?php } ?>
         </select>
       </div>
       

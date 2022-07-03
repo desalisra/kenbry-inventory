@@ -25,7 +25,7 @@
   </div>
 
   
-  <?php if(session('role_user') == "FINANCE" || session('role_user') == "ADMIN") : ?>
+  <?php if(session('role_user') == "ADMIN") : ?>
     <!-- Nav Item - Karyawan -->
     <li class="nav-item">
       <a class="nav-link" href="<?= base_url('karyawan') ?>">
@@ -33,6 +33,9 @@
         <span>Master Karyawan</span>
       </a>
     </li>
+  <?php endif ?>
+
+  <?php if(session('role_user') == "FINANCE" || session('role_user') == "ADMIN") : ?>
     <!-- Nav Item - Customer -->
     <li class="nav-item">
       <a class="nav-link" href="<?= base_url('customer') ?>">
@@ -42,13 +45,15 @@
     </li>
   <?php endif ?>
 
-  <!-- Nav Item - Procuct -->
-  <li class="nav-item">
-    <a class="nav-link" href="<?= base_url('produk') ?>">
-      <i class="fas fa-table"></i>
-      <span>Master Produk</span>
-    </a>
-  </li>
+  <?php if(session('role_user') == "GUDANG" || session('role_user') == "ADMIN") : ?>
+    <!-- Nav Item - Procuct -->
+    <li class="nav-item">
+      <a class="nav-link" href="<?= base_url('produk') ?>">
+        <i class="fas fa-table"></i>
+        <span>Master Produk</span>
+      </a>
+    </li>
+  <?php endif ?>
 
   <!-- Heading -->
   <div class="sidebar-heading">
@@ -84,14 +89,12 @@
     Laporan
   </div>
 
-  <?php if(session('role_user') == "GUDANG" || session('role_user') == "ADMIN") : ?>
   <li class="nav-item">
     <a class="nav-link" href="<?= base_url('stock') ?>">
       <i class="fas fa-book"></i>
       <span>Stock Produk</span>
     </a>
   </li>
-  <?php endif ?>
 
   <?php if(session('role_user') == "FINANCE" || session('role_user') == "ADMIN") : ?>
   <li class="nav-item">

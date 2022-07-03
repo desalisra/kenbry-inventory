@@ -24,7 +24,7 @@
 
 <div class="card shadow mb-4">
   <div class="card-header py-3">
-    <h6 class="m-0 font-weight-bold text-primary">Purchase Produk</h6>
+    <h6 class="m-0 font-weight-bold text-primary">Add Akun</h6>
   </div>
   <div class="card-body">
     <form action="<?= base_url('administrator')  ?>" method="post">
@@ -52,7 +52,7 @@
 
 <div class="card shadow mb-4">
   <div class="card-header py-3">
-    <h6 class="m-0 font-weight-bold text-primary">Akun Login</h6>
+    <h6 class="m-0 font-weight-bold text-primary">List Akun Login</h6>
   </div>
   <div class="card-body">
     <div class="table-responsive">
