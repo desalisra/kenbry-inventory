@@ -43,7 +43,8 @@
       <tr>
         <th width="5%">No</th>
         <th width="10%">Kode</th>
-        <th width="45%" align="left">Nama Produk</th>
+        <th width="40%" align="left">Nama Produk</th>
+        <th width="5%">Qty</th>
         <th width="10%">Jml Satuan</th>
         <th width="15%">Harga Satuan</th>
         <th width="15%">Sub Total</th>
@@ -56,6 +57,7 @@
           <td align="center"><?= $key + 1 ?></td>
           <td align="center"><?= $value->prd_id ?></td>
           <td><?= $value->prd_nama  ?></td>
+          <td align="center"><?= $value->spd_qty ?></td>
           <td align="center"><?= $value->prd_panjang * $value->prd_lebar * $value->spd_qty ?> m2</td>
           <td align="center"><?= number_format($value->prd_harga) ?></td>
           <td align="center"><?= number_format($value->spd_harga) ?></td>
@@ -65,7 +67,7 @@
     </tbody>
     <tfoot>
       <tr>
-        <th colspan="5" class="text-right">Total</th>
+        <th colspan="6" class="text-right">Total</th>
         <th><?= number_format($total) ?></th>
       </tr>
     </tfoot>
